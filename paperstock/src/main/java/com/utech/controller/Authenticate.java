@@ -28,7 +28,7 @@ public class Authenticate extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
+	/**https://github.com/ManiarasanDuraimanickam/paperstockInventory
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
