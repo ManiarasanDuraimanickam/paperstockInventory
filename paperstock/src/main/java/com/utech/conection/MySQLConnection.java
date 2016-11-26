@@ -11,7 +11,7 @@ public class MySQLConnection implements DBConnection {
 	}
 
 	@Override
-	public boolean close() {
+	public boolean closeConnection() {
 		// TODO Auto-generated method stub
 		return false;
 	}
