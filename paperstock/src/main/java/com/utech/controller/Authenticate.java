@@ -1,10 +1,7 @@
 package com.utech.controller;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,8 +10,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.utech.conection.DBConnection;
-import com.utech.conection.MySQLConnection;
+import com.utech.mapper.RequestMapper;
+import com.utech.mapper.RequestMapperImpl;
+import com.utech.model.PSIDatavo;
+import com.utech.model.USERINFO;
+import com.utech.service.PSIService;
+import com.utech.service.PSIServiceImpl;
+import com.utech.util.Constants;
+import com.utech.util.Constants.VIWEPAGE;
 
 /**
  * Servlet implementation class Authenticate
@@ -22,15 +25,12 @@ import com.utech.conection.MySQLConnection;
 @WebServlet(urlPatterns = { "/authenticate" })
 public class Authenticate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final PSIService PSI_SERVICE = new PSIServiceImpl();
+	private static final RequestMapper REQUEST_MAPPER = new RequestMapperImpl();
+	private static final String PSIDATAVO = "PSIDatavo";
 
-	private DBConnection connection = new MySQLConnection();
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public Authenticate() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -41,20 +41,35 @@ public class Authenticate extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		boolean isValid = false;
+		USERINFO userinfo = REQUEST_MAPPER.mapUserInfo(request);
 		try {
-			String username = request.getParameter("username");
-			String pass = request.getParameter("password");
-			Connection connection = this.connection.getConnection();
-			Statement st = connection.createStatement();
-			ResultSet resultSet = st
-					.executeQuery("select * from auth where uname='" + username + "' and pass='" + pass + "'");
-			resultSet.next();
+			isValid = PSI_SERVICE.isValidUser(userinfo);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Constants.logger.error(e.getMessage(), e);
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/dashboard.ftl");
+		RequestDispatcher dispatcher = null;
+		if (isValid) {
+			dispatcher = request.getRequestDispatcher(VIWEPAGE.DASHBOARD.getPage());
+			PSIDatavo datavo = new PSIDatavo();
+			datavo.setUserinfo(userinfo);
+			request.getSession().setAttribute(PSIDATAVO, datavo);
+		} else {
+			dispatcher = request.getRequestDispatcher(VIWEPAGE.LOGIN.getPage());
+			request.getSession().removeAttribute(PSIDATAVO);
+			request.getSession().invalidate();
+			request.setAttribute("validationfailed", "Your Username or Password is not valid");
+		}
 		dispatcher.forward(request, response);
 	}
 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		boolean logout = Boolean.getBoolean(request.getParameter("logout"));
+		if (logout) {
+			request.getSession().invalidate();
+		}
+		RequestDispatcher dispatcher = request.getRequestDispatcher(VIWEPAGE.LOGIN.getPage());
+		dispatcher.forward(request, response);
+	}
 }

@@ -13,7 +13,7 @@ public final class MySQLConnection implements DBConnection {
 	private static final connection conn = new connection();
 
 	@Override
-	public Connection getConnection() {
+	public Connection getConnection() throws SQLException {
 		// TODO Auto-generated method stub
 		return conn.getMYSQLCon();
 	}
@@ -23,7 +23,7 @@ public final class MySQLConnection implements DBConnection {
 		// TODO Auto-generated method stub
 		try {
 			if (!conn.getMYSQLCon().isClosed()) {
-				this.conn.getMYSQLCon().close();
+				conn.getMYSQLCon().close();
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -36,12 +36,12 @@ public final class MySQLConnection implements DBConnection {
 		private Connection conn = null;
 		private Properties dbConnProp = null;
 
-		public final Connection getMYSQLCon() {
+		public final Connection getMYSQLCon() throws SQLException {
 
 			synchronized (this) {
-				if (null == conn) {
+				if (null == conn || conn.isClosed()) {
 					try {
-						Constants.logger.info("DB COnnection creations");
+						Constants.logger.info("DB Connection creations");
 						dbConnProp = new Properties();
 						dbConnProp.load(Constants.getPropertiesAsStream("connfile.properties"));
 						Class.forName(dbConnProp.getProperty("driver"));

@@ -202,7 +202,7 @@ cursor: pointer;
                 <input type="password" id="inputPassword" name="password" class="login_box" placeholder="password" required>
                 <div id="remember" class="checkbox">
                     <label>
-                        
+                        <span style="color:red">${validationfailed!""}</span>
                     </label>
                 </div>
                 <button class="btn btn-lg btn-primary" type="submit">Login</button>
