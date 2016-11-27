@@ -65,7 +65,7 @@ public class Authenticate extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		boolean logout = Boolean.getBoolean(request.getParameter("logout"));
+		boolean logout = Boolean.valueOf(request.getParameter("logout"));
 		if (logout) {
 			request.getSession().invalidate();
 		}
