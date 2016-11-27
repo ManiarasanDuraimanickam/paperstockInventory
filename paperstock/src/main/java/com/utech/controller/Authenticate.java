@@ -1,8 +1,12 @@
 package com.utech.controller;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,11 +19,11 @@ import com.utech.conection.MySQLConnection;
 /**
  * Servlet implementation class Authenticate
  */
-@WebServlet(description = "To validate the user credentials", urlPatterns = { "/Authenticate" })
+@WebServlet(urlPatterns = { "/authenticate" })
 public class Authenticate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private DBConnection connection1 = new MySQLConnection();
+	private DBConnection connection = new MySQLConnection();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -29,18 +33,28 @@ public class Authenticate extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 
-	/**https://github.com/ManiarasanDuraimanickam/paperstockInventory
+	/**
+	 * https://github.com/ManiarasanDuraimanickam/paperstockInventory
+	 * 
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			connection1.getConnection();
+			String username = request.getParameter("username");
+			String pass = request.getParameter("password");
+			Connection connection = this.connection.getConnection();
+			Statement st = connection.createStatement();
+			ResultSet resultSet = st
+					.executeQuery("select * from auth where uname='" + username + "' and pass='" + pass + "'");
+			resultSet.next();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/dashboard.ftl");
+		dispatcher.forward(request, response);
 	}
 
 }
