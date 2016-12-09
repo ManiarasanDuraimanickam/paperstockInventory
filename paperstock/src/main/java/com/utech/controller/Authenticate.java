@@ -18,6 +18,7 @@ import com.utech.service.PSIService;
 import com.utech.service.PSIServiceImpl;
 import com.utech.util.Constants;
 import com.utech.util.Constants.VIWEPAGE;
+import com.utech.util.ControllerUtil;
 
 /**
  * Servlet implementation class Authenticate
@@ -27,10 +28,10 @@ public class Authenticate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final PSIService PSI_SERVICE = new PSIServiceImpl();
 	private static final RequestMapper REQUEST_MAPPER = new RequestMapperImpl();
-	private static final String PSIDATAVO = "PSIDatavo";
 
-	public Authenticate() {
+	public Authenticate() throws IOException {
 		super();
+		ControllerUtil.APP_PROPERTIES.load(Constants.getPropertiesAsStream("app.properties"));
 	}
 
 	/**
@@ -43,6 +44,7 @@ public class Authenticate extends HttpServlet {
 			throws ServletException, IOException {
 		boolean isValid = false;
 		USERINFO userinfo = REQUEST_MAPPER.mapUserInfo(request);
+		userinfo.setFinacialYear(ControllerUtil.APP_PROPERTIES.getProperty(Constants.STR_FINACIAL_YEAR));
 		try {
 			isValid = PSI_SERVICE.isValidUser(userinfo);
 		} catch (SQLException e) {
@@ -53,23 +55,34 @@ public class Authenticate extends HttpServlet {
 			dispatcher = request.getRequestDispatcher(VIWEPAGE.DASHBOARD.getPage());
 			PSIDatavo datavo = new PSIDatavo();
 			datavo.setUserinfo(userinfo);
-			request.getSession().setAttribute(PSIDATAVO, datavo);
+			try {
+				datavo.getStockDetails().addAll(PSI_SERVICE.getAllStockDetails(datavo));
+			} catch (SQLException e) {
+				ControllerUtil.redirectToLoginpage(dispatcher, request, "validationfailed", e.getMessage());
+			}
+			request.getSession().setAttribute(Constants.PSIDATAVO, datavo);
 		} else {
-			dispatcher = request.getRequestDispatcher(VIWEPAGE.LOGIN.getPage());
-			request.getSession().removeAttribute(PSIDATAVO);
-			request.getSession().invalidate();
-			request.setAttribute("validationfailed", "Your Username or Password is not valid");
+			ControllerUtil.redirectToLoginpage(dispatcher, request, "validationfailed",
+					"Your Username or Password is not valid");
 		}
 		dispatcher.forward(request, response);
 	}
 
+	@SuppressWarnings("null")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		boolean logout = Boolean.valueOf(request.getParameter("logout"));
 		if (logout) {
 			request.getSession().invalidate();
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher(VIWEPAGE.LOGIN.getPage());
+		RequestDispatcher dispatcher = null;/*
+											 * request.getRequestDispatcher(
+											 * VIWEPAGE.LOGIN.getPage());
+											 * dispatcher.forward(request,
+											 * response);
+											 */
+		ControllerUtil.redirectToLoginpage(dispatcher, request, "validationfailed",
+				"Thank you, You have successfully logout.");
 		dispatcher.forward(request, response);
 	}
 }

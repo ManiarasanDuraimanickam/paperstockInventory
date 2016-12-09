@@ -18,7 +18,7 @@
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
-                <li class="dropdown">
+               <!-- <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
                     <ul class="dropdown-menu message-dropdown">
                         <li class="message-preview">
@@ -70,8 +70,8 @@
                             <a href="#">Read All New Messages</a>
                         </li>
                     </ul>
-                </li>
-                <li class="dropdown">
+                </li>-->
+                <!--<li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
                     <ul class="dropdown-menu alert-dropdown">
                         <li>
@@ -97,7 +97,8 @@
                             <a href="#">View All</a>
                         </li>
                     </ul>
-                </li>
+                </li>-->
+                <!-- logged in user profiles and other stuffs here-->
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> ${(PSIDatavo.userinfo.username)!"User"} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
@@ -118,6 +119,7 @@
                 </li>
             </ul>
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li class="active">
@@ -181,40 +183,50 @@
                 </div>
                 <!-- /.row -->
 
-                <div class="row">
+               <!-- <div class="row">
                     <div class="col-lg-12">
                         <div class="alert alert-info alert-dismissable">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                             <i class="fa fa-info-circle"></i>  <strong>Like Paper Stock?</strong> Try out <a href="#" class="alert-link">Paper Stock</a> for additional features!
                         </div>
                     </div>
-                </div>
+                </div>-->
                 <!-- /.row -->
 
                 <div class="row">
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-comments fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">26</div>
-                                        <div>New Comments!</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
+                 <#list PSIDatavo.stockDetails as stockdetail>
+	                 <#list stockdetail.paperDetail as paperdetail>
+	                 	<div class="col-lg-3 col-md-6">
+                     		<div class="panel panel-primary">
+	                            <div class="panel-heading">
+	                                <div class="row">
+	                                    <div class="col-xs-3">
+	                                        <i class="fa fa-comments fa-2x"></i>
+	                                        ${stockdetail.millname!}
+	                                    </div>
+	                                    <div class="col-xs-9 text-right">
+	                                        <div class="huge">${paperdetail.stock!}kg</div>
+	                                        <div>${paperdetail.gsm!}GSM
+	                                        <b>,<b> 
+	                                        ${paperdetail.grade!}
+ 											<b>,<b> ${paperdetail.size!}
+	                                       </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                            <a href="#">
+	                                <div class="panel-footer">
+	                                    <span class="pull-left">View Details</span>
+	                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+	                                    <div class="clearfix"></div>
+	                                </div>
+	                            </a>
+		                      </div>
+		                  </div>
+	                 </#list>
+                 </#list>
+                </div>
+                   <!-- <div class="col-lg-3 col-md-6">
                         <div class="panel panel-green">
                             <div class="panel-heading">
                                 <div class="row">
@@ -280,7 +292,7 @@
                             </a>
                         </div>
                     </div>
-                </div>
+                </div>-->
                 <!-- /.row -->
 
                 <div class="row">

@@ -22,7 +22,7 @@ public class PSIRepositoryImpl implements PSIRespository {
 	private DBConnection connection = new MySQLConnection();
 	private ResponseMapper responseMapper = new ResponseMapperImpl();
 
-	private static final String[] query = { "select * from auth where uname=? and pass=? and rights=?",
+	private static final String[] query = { "select * from auth where uname=? and pass=? and rights=? and financialYear=?",
 			"select * from stockdetails inner join milldetails on stockdetails.mill_id=milldetails.sno;" };
 
 	@Override
@@ -34,6 +34,7 @@ public class PSIRepositoryImpl implements PSIRespository {
 			pst.setString(1, userinfo.getUsername());
 			pst.setString(2, new String(userinfo.getPassword()));
 			pst.setBoolean(3, Boolean.TRUE);
+			pst.setString(4, userinfo.getFinacialYear());
 			ResultSet resultSet = pst.executeQuery();
 			valid = !resultSet.wasNull() && resultSet.next() ? (Boolean) resultSet.getObject("rights") : false;
 		} finally {
@@ -44,15 +45,16 @@ public class PSIRepositoryImpl implements PSIRespository {
 
 	@Override
 	public List<PSIStockDetail> getAllStockDetails(PSIDatavo datavo) throws SQLException {
+		List<PSIStockDetail> psiStockDetails=null;
 		try {
 			Connection connection = this.connection.getConnection();
 			PreparedStatement pst = connection.prepareStatement(query[1]);
 			ResultSet resultSet = pst.executeQuery();
-			this.responseMapper.getAllStockDetails(resultSet,datavo);
+			psiStockDetails=this.responseMapper.getAllStockDetails(resultSet,datavo);
 		} finally {
 			this.connection.getConnection().close();
 		}
-		return null;
+		return psiStockDetails;
 
 	}
 

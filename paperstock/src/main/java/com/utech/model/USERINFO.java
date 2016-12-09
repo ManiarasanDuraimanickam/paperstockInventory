@@ -18,6 +18,8 @@ public class USERINFO implements Serializable {
 
 	private String loggedInMachine;
 
+	private String finacialYear;
+
 	public String getUsername() {
 		return username;
 	}
@@ -48,5 +50,13 @@ public class USERINFO implements Serializable {
 
 	public void setLoggedInMachine(String loggedInMachine) {
 		this.loggedInMachine = loggedInMachine;
+	}
+
+	public String getFinacialYear() {
+		return finacialYear;
+	}
+
+	public void setFinacialYear(String finacialYear) {
+		this.finacialYear = finacialYear;
 	}
 }

@@ -21,6 +21,9 @@ public final class Constants {
 
 	}
 
+	public static final String PSIDATAVO = "PSIDatavo";
+	public static String STR_FINACIAL_YEAR = "finacialYear";
+
 	public final static Logger logger = Logger.getLogger(Constants.class);
 
 	public static final InputStream getPropertiesAsStream(String name) {
