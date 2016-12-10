@@ -6,23 +6,9 @@ import org.apache.log4j.Logger;
 
 public final class Constants {
 
-	public static enum VIWEPAGE {
-		LOGIN("/login.ftl"), DASHBOARD("/dashboard.ftl");
-
-		private final String page;
-
-		VIWEPAGE(String page) {
-			this.page = page;
-		}
-
-		public String getPage() {
-			return page;
-		}
-
-	}
-
 	public static final String PSIDATAVO = "PSIDatavo";
-	public static String STR_FINACIAL_YEAR = "finacialYear";
+	public static final String STR_FINACIAL_YEAR = "finacialYear";
+	public static final String LOGIN_ERROR_KEY="validationfailed";
 
 	public final static Logger logger = Logger.getLogger(Constants.class);
 

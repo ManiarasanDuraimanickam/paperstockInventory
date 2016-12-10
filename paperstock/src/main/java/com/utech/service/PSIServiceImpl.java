@@ -33,4 +33,10 @@ public class PSIServiceImpl implements PSIService {
 		return this.respository.getAllStockDetails(datavo);
 	}
 
+	@Override
+	public List<PSIStockDetail> getFilteredStockByUserQuery(int queryIndex, Object... query) throws SQLException {
+		// TODO Auto-generated method stub
+		return this.respository.getFilteredStockByUserQuery(queryIndex, query);
+	}
+
 }

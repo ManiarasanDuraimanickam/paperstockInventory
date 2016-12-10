@@ -31,8 +31,8 @@
     <!--<script src="template/js/bootstrap.js"></script>-->
 
     <!-- Morris Charts JavaScript -->
-    <script src="template/js/plugins/morris/raphael.min.js"></script>
+  <!--  <script src="template/js/plugins/morris/raphael.min.js"></script>
     <script src="template/js/plugins/morris/morris.min.js"></script>
-    <script src="template/js/plugins/morris/morris-data.js"></script>
+    <script src="template/js/plugins/morris/morris-data.js"></script>-->
 
 </head>

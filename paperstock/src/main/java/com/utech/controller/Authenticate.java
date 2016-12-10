@@ -17,8 +17,8 @@ import com.utech.model.USERINFO;
 import com.utech.service.PSIService;
 import com.utech.service.PSIServiceImpl;
 import com.utech.util.Constants;
-import com.utech.util.Constants.VIWEPAGE;
 import com.utech.util.ControllerUtil;
+import com.utech.util.ControllerUtil.VIWEPAGE;
 
 /**
  * Servlet implementation class Authenticate
@@ -58,30 +58,24 @@ public class Authenticate extends HttpServlet {
 			try {
 				datavo.getStockDetails().addAll(PSI_SERVICE.getAllStockDetails(datavo));
 			} catch (SQLException e) {
-				ControllerUtil.redirectToLoginpage(dispatcher, request, "validationfailed", e.getMessage());
+				dispatcher = ControllerUtil.redirectToLoginpage(request, Constants.LOGIN_ERROR_KEY, e.getMessage());
 			}
+			request.getSession(true).setAttribute( "navpage", "dashboard");
 			request.getSession().setAttribute(Constants.PSIDATAVO, datavo);
 		} else {
-			ControllerUtil.redirectToLoginpage(dispatcher, request, "validationfailed",
+			dispatcher = ControllerUtil.redirectToLoginpage(request, Constants.LOGIN_ERROR_KEY,
 					"Your Username or Password is not valid");
 		}
 		dispatcher.forward(request, response);
 	}
 
-	@SuppressWarnings("null")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		boolean logout = Boolean.valueOf(request.getParameter("logout"));
 		if (logout) {
 			request.getSession().invalidate();
 		}
-		RequestDispatcher dispatcher = null;/*
-											 * request.getRequestDispatcher(
-											 * VIWEPAGE.LOGIN.getPage());
-											 * dispatcher.forward(request,
-											 * response);
-											 */
-		ControllerUtil.redirectToLoginpage(dispatcher, request, "validationfailed",
+		RequestDispatcher dispatcher = ControllerUtil.redirectToLoginpage(request, Constants.LOGIN_ERROR_KEY,
 				"Thank you, You have successfully logout.");
 		dispatcher.forward(request, response);
 	}

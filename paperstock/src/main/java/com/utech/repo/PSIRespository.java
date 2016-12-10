@@ -13,5 +13,7 @@ public interface PSIRespository extends Serializable{
 	public boolean isValidUser(USERINFO userinfo)throws SQLException;
 	
 	public List<PSIStockDetail> getAllStockDetails(PSIDatavo datavo) throws SQLException;
+	
+	public List<PSIStockDetail> getFilteredStockByUserQuery(int queryIndex,Object... query) throws SQLException;
 
 }

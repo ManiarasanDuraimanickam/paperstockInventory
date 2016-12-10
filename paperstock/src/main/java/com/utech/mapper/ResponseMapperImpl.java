@@ -44,8 +44,9 @@ public class ResponseMapperImpl implements ResponseMapper {
 				detail.setStock(rs.getString("stock"));
 				paperDetails.add(detail);
 				stockDetail.setPaperDetail(paperDetails);
+				stockDetails.add(stockDetail);
 			}
-			stockDetails.add(stockDetail);
+			
 		}
 		return stockDetails;
 	}

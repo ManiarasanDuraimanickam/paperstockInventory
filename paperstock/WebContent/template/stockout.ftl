@@ -133,15 +133,15 @@
                 <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">
-                            <small><i class="fa fa-dashboard"></i> Dashboard Overview</small>
+                    <h1 class="page-header">
+                            <small><i class="fa fa-table"></i> Stockout</small>
                         </h1>
                        <!-- <ol class="breadcrumb">
                             <li class="active">
-                                <i class="fa fa-dashboard"></i> Dashboard
+                                <i class="fa fa-table"></i> Stockout
                             </li>
                         </ol>
-                        <div class="dividerborder" style="border-bottom:1px solid #cecbcb;margin-bottom: 1em;">
+                        <div class="dividerborder">
                         </div>-->
                     </div>
                 </div>
@@ -420,6 +420,7 @@
 
         </div>
         <!-- /#page-wrapper -->
+
     </div>
     </body>
     </html>

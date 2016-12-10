@@ -134,15 +134,13 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            <small><i class="fa fa-dashboard"></i> Dashboard Overview</small>
+                           <small><i class="fa fa-desktop"></i> Mill Details</small>
                         </h1>
                        <!-- <ol class="breadcrumb">
                             <li class="active">
-                                <i class="fa fa-dashboard"></i> Dashboard
+                                <i class="fa fa-desktop"></i> Mill Details
                             </li>
-                        </ol>
-                        <div class="dividerborder" style="border-bottom:1px solid #cecbcb;margin-bottom: 1em;">
-                        </div>-->
+                        </ol>-->
                     </div>
                 </div>
                 <!-- /.row -->
@@ -420,6 +418,7 @@
 
         </div>
         <!-- /#page-wrapper -->
+
     </div>
     </body>
     </html>

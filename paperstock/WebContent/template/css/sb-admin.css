@@ -8,7 +8,8 @@
 
 body {
     margin-top: 100px;
-    background-color: #222;
+   /* background-color: #222;*/
+   background-color:#FFF;
 }
 
 @media(min-width:768px) {
@@ -224,4 +225,9 @@ ul.alert-dropdown {
 
 .panel-yellow > a:hover {
     color: #df8a13;
+}
+
+/** custom css*/
+.errorMsgBorder{
+	border:1px solid red;
 }
