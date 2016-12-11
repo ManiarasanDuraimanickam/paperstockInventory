@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.utech.model.PSIStockDetail;
 import com.utech.service.PSIService;
 import com.utech.service.PSIServiceImpl;
 import com.utech.util.Constants;
@@ -69,7 +71,23 @@ public class StockFilterController extends HttpServlet {
 			break;
 		}
 		try {
-			PSI_SERVICE.getFilteredStockByUserQuery(queryIndex, query.toArray());
+			List<PSIStockDetail>stockDetail=PSI_SERVICE.getFilteredStockByUserQuery(queryIndex, query.toArray());
+			Gson gson=new Gson();
+			String responseData=gson.toJson(stockDetail);
+			response.setContentType("application/json");
+			StringBuilder builder=new StringBuilder();
+			builder.append(",");
+			builder.append("\"");
+			builder.append("queryIndex");
+			builder.append("\"");
+			builder.append(":");
+			builder.append("\"");
+			builder.append(queryIndex);
+			builder.append("\"");
+			builder.append("}]");
+			responseData=responseData.substring(0, responseData.lastIndexOf("}"));
+			responseData=responseData.concat(builder.toString());
+			response.getWriter().write(responseData);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			ControllerUtil.redirectToLoginpage(request, Constants.LOGIN_ERROR_KEY, e.getMessage());

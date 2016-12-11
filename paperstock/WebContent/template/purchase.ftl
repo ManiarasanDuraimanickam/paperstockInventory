@@ -166,7 +166,7 @@
 	                                <tr>
 	                                	<th>Mill</th> 
 	                                    <td>
-		                                    <select name="millname">
+		                                    <select name="millname" class="stockFilterSelect">
 		                                    <option value="">Select Mill</option>
 		                                     <#list PSIDatavo.stockDetails as stockdetail>
 		                                      <option value="${stockdetail.millname}">${stockdetail.millname}</option>
@@ -178,7 +178,7 @@
 	                                 	 <th>GSM</th>
 		                                    <td>
 			                                    <#assign gsm=[]>
-			                                    <select name="gsm">
+			                                    <select name="gsm" class="stockFilterSelect">
 			                                    <option value="">Select GSM</option>
 			                                     <#list PSIDatavo.stockDetails as stockdetail>
 				                                    <#list stockdetail.paperDetail as paperdetail>
@@ -195,7 +195,7 @@
 		                                  	<th>Grade</th>
 	                                    	<td>
 	                                    		<#assign grade=[]>
-			                                    <select name="grade">
+			                                    <select name="grade" class="stockFilterSelect">
 			                                    <option value="">Select Grade</option>
 			                                     <#list PSIDatavo.stockDetails as stockdetail>
 				                                    <#list stockdetail.paperDetail as paperdetail>
@@ -212,7 +212,7 @@
 	                                      	<th>SIZE</th>
 	                                      	<td>
 	                                   	  		<#assign size=[]>
-			                                    <select name="size">
+			                                    <select name="size" class="stockFilterSelect">
 			                                    <option value="">Select Size</option>
 			                                     <#list PSIDatavo.stockDetails as stockdetail>
 				                                    <#list stockdetail.paperDetail as paperdetail>
@@ -227,14 +227,14 @@
 	                                   	  </tr>
 	                                   	  <tr>
 		                                   	  <th>Stock In Hand</th>
-		                                   	  <td>0.0kg</td>
+		                                   	  <td><span id="stockInHand">0</span></td>
 	                                   	  </tr>
 	                                   	  </tr>
 	                                    	<th>Purchase</th>
-	                                    	<td><input type="text" class="disable" name="purchase"/></td>
+	                                    	<td><input type="text" class="cursorNotAllowed" name="purchase" disabled="" value="0"/></td>
 	                                    <tr>
 	                                    <th>Total</th>
-	                                    <td id="purchasetotal"></td>
+	                                    <td><span id="purchasetotal" class="totalstock">0</span></td>
 	                                	</tr>
 	                                	<tr>
 	                                	<th></th>
@@ -257,7 +257,10 @@ $(document).ready(function(){
 	filterValueByMill();	
 	filterValueByGsm();
 	filterValueByGrade();
-	filterValueBySize();			   
+	filterValueBySize();
+	purchaseAllowNumber();
+	purchaseKeyPress()
+	purchaseBlur(); 			   
 	submitFormValidation();
 	
 });
@@ -267,8 +270,9 @@ function filterValueByMill(){
 		var queryIndex="queryIndex=0";
 		var data=queryIndex;
 		var millname="millname="+$("select[name=millname]").val();
-		if(millname.length==0){
+		if($("select[name=millname]").val().length==0){
 			alert("please select the Mill name");
+			$("select[name=millname]").val("");
 			return false;
 		}
 		data=data+"&"+millname;
@@ -277,79 +281,127 @@ function filterValueByMill(){
 }
 function filterValueByGsm(){
 	$("select[name=gsm]").change(function(){
-		var queryIndex="queryIndex:1";
-		var data=data+queryIndex;
-		var millname="millname:"+$("select[name=millname]").val();
-		var gsm="gsm:"+$("select[name=gsm]").val();
-		if(millname.length==0){
+		var queryIndex="queryIndex=1";
+		var data=queryIndex;
+		var millname="millname="+$("select[name=millname]").val();
+		var gsm="gsm="+$("select[name=gsm]").val();
+		if($("select[name=millname]").val().length==0){
 			alert("please select the Mill name");
+			$("select[name=millname]").val("");
+			$("select[name=gsm]").val("");
 			return false;
 		}
-		else if(gsm.length==0){
+		else if($("select[name=gsm]").val().length==0){
 			alert("please select the GSM");
+			$("select[name=gsm]").val("");
 			return false;
 		}
-		data=data+gsm;
+		data=data+"&"+millname;
+		data=data+"&"+gsm;
 		ajaxCall(data);
 	});
 }
 function filterValueByGrade(){
 	$("select[name=grade]").change(function(){
-		var queryIndex="queryIndex:2";
-		var data=data+queryIndex;
-		var millname="millname:"+$("select[name=millname]").val();
-		var gsm="gsm:"+$("select[name=gsm]").val();
-		var grade="grade:"+$("select[name=grade]").val();
-		if(millname.length==0){
+		var queryIndex="queryIndex=2";
+		var data=queryIndex;
+		var millname="millname="+$("select[name=millname]").val();
+		var gsm="gsm="+$("select[name=gsm]").val();
+		var grade="grade="+$("select[name=grade]").val();
+		if($("select[name=millname]").val().length==0){
 			alert("please select the Mill name");
+			$("select[name=millname]").val("");
+			$("select[name=grade]").val("");
 			return false;
 		}
-		else if(gsm.length==0){
+		else if($("select[name=gsm]").val().length==0){
 			alert("please select the GSM");
+			$("select[name=gsm]").val("");
+			$("select[name=grade]").val("");
 			return false;
 		}
-		else if(grade.length==0){
+		else if($("select[name=grade]").val().length==0){
 			alert("please select the Grade");
+			$("select[name=grade]").val("");
 			return false;
 		}
-		data=data+gsm;
-		data=data+gsm;
-		data=data+grade;
+		data=data+"&"+millname;
+		data=data+"&"+gsm;
+		data=data+"&"+grade;
 		ajaxCall(data);
 	});
 }
 function filterValueBySize(){
 	$("select[name=size]").change(function(){
 		var queryIndex="queryIndex=3";
-		var data=data+queryIndex;
+		var data=queryIndex;
 		var millname="millname="+$("select[name=millname]").val();
-		var gsm="gsm:"+$("select[name=gsm]").val();
-		var grade="grade:"+$("select[name=grade]").val();
-		var size="size:"+$("select[name=size]").val();
+		var gsm="gsm="+$("select[name=gsm]").val();
+		var grade="grade="+$("select[name=grade]").val();
+		var size="size="+$("select[name=size]").val();
 		if($("select[name=millname]").val().length==0){
 			alert("please select the Mill name");
+			$("select[name=millname]").val("");
+			$("select[name=size]").val("");
 			return false;
 		}
 		else if($("select[name=gsm]").val().length==0){
 			alert("please select the GSM");
+			$("select[name=gsm]").val("");
+			$("select[name=size]").val("");
 			return false;
 		}
-		else if($("select[name=grade]").length==0){
+		else if($("select[name=grade]").val().length==0){
 			alert("please select the Grade");
+			$("select[name=grade]").val("");
+			$("select[name=size]").val("");
 			return false;
 		}
 		else if($("select[name=size]").val().length==0){
 			alert("please select the Size");
+			$("select[name=size]").val("");
 			return false;
 		}
-		data=data+gsm;
-		data=data+gsm;
-		data=data+grade;
-		
-		data=data+size;
+		data=data+"&"+millname;
+		data=data+"&"+gsm;
+		data=data+"&"+grade;
+		data=data+"&"+size;
 		ajaxCall(data);
 	});
 }
+function purchaseAllowNumber(){
+		$("input[name=purchase]").keydown(function(event){
+			 var keycode = event.keyCode || event.which;
+			 if(event.ctrlKey || event.shiftKey)
+			 	return false;
+			 else if(((keycode>=48 && keycode<=57) || (keycode>=96 && keycode<=105)) || (keycode===8 || keycode===46 ))
+				return true;
+			 else
+				return false;
+		});
+	}
+function purchaseKeyPress(){
+	$("input[name=purchase]").click(function(){
+		if(parseInt($(this).val())===0){
+			$(this).val("");
+		}
+	});
+}
+function purchaseBlur(){
+	$("input[name=purchase]").blur(function(){
+		var stockInHand=parseInt($("#stockInHand").text());
+		var purchase=parseInt($(this).val());
+		var total=0;
+		if(isNaN(purchase)){
+			$(this).val(0);
+		}
+		else{
+			total=stockInHand+purchase;
+		}
+		$("#purchasetotal").text(total);
+	});
+}
+	
 function submitFormValidation(){
 		$("form").submit(function(event){
 			event.preventDefault();
@@ -368,8 +420,29 @@ function submitFormValidation(){
         }, position);
 	}
 	var successFN=function(data,textStatus){
-	alert(data+"  "+textStatus);
+		var responseJson=data[0];
+		var queryIndex=responseJson.queryIndex;
+		var paperDetails=responseJson.paperDetail;
+		displayAvaliableStock(0);
+		switch(queryIndex){
+			case "0":
+				updateGSMSelect(paperDetails);
+				updateGradeSelect(paperDetails);
+				updateSizeSelect(paperDetails);
+			break;
+			case "1":
+				updateGradeSelect(paperDetails);
+				updateSizeSelect(paperDetails);
+			break;
+			case "2":
+				updateSizeSelect(paperDetails);
+			break;
+			case "3":
+				displayAvaliableStock(paperDetails[0].stock);
+			break;
+		}
 	}
+	
 	function ajaxCall(data){
 		var url="http://localhost:8080/paperstock/stockfilter"
 		/*$.ajax({
@@ -381,7 +454,57 @@ function submitFormValidation(){
 		});*/
 		$.post(url,data,successFN);
 	}
-	
+	function updateGSMSelect(paperDetails){
+		var gsmArray=new Array();
+		var gsmSelect=$("select[name=gsm]");
+		var options="<option value=\"\">Select GSM</option>";
+		paperDetails.forEach(function(data){
+		if(gsmArray.length===0 || gsmArray.indexOf(data.gsm)===-1){
+			options=options+"<option value=\""+data.gsm+"\">"+data.gsm+"</option>";
+			gsmArray.push(data.gsm);
+		}
+		});
+		gsmSelect.html("");
+		gsmSelect.html(options);
+	}
+	function updateGradeSelect(paperDetails){
+		var gradeArray=new Array();
+		var gradeSelect=$("select[name=grade]");
+		var options="<option value=\"\">Select Grade</option>";
+		paperDetails.forEach(function(data){
+		if(gradeArray.length===0 || gradeArray.indexOf(data.grade)===-1){
+			options=options+"<option value=\""+data.grade+"\">"+data.grade+"</option>"
+			gradeArray.push(data.grade);
+		}
+		});
+		gradeSelect.html("");
+		gradeSelect.html(options);
+	}
+	function updateSizeSelect(paperDetails){
+		var sizeArray=new Array();
+		var sizeSelect=$("select[name=size]");
+		var options="<option value=\"\">Select Size</option>";
+		paperDetails.forEach(function(data){
+		if(sizeArray.length===0 || sizeArray.indexOf(data.size)===-1){
+			options=options+"<option value=\""+data.size+"\">"+data.size+"</option>"
+			sizeArray.push(data.size);
+		}
+		});
+		sizeSelect.html("");
+		sizeSelect.html(options);
+	}
+	function displayAvaliableStock(stock){
+		$("#stockInHand").text(stock);
+		if(stock>0){
+			$("input[name=purchase]").removeClass("cursorNotAllowed");
+			$("input[name=purchase]").removeAttr("disabled");
+		}
+		else{
+			$("input[name=purchase]").val(0);
+			$("input[name=purchase]").addClass("cursorNotAllowed");
+			$("input[name=purchase]").attr("disabled","");
+		}
+	}	
 </script>
     </body>
     </html>
