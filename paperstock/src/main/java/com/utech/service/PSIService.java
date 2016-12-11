@@ -13,5 +13,7 @@ public interface PSIService extends Serializable {
 
 	public List<PSIStockDetail> getAllStockDetails(PSIDatavo datavo) throws SQLException;
 	
-	public List<PSIStockDetail>  getFilteredStockByUserQuery(int queryIndex,Object... query) throws SQLException;
+	public List<PSIStockDetail>  getFilteredStockByUserQuery(PSIDatavo datavo, int queryIndex,Object... query) throws SQLException;
+
+	public boolean isMillAvailability(PSIDatavo datavo,String...milldetails) throws SQLException;
 }

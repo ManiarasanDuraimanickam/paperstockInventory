@@ -34,9 +34,15 @@ public class PSIServiceImpl implements PSIService {
 	}
 
 	@Override
-	public List<PSIStockDetail> getFilteredStockByUserQuery(int queryIndex, Object... query) throws SQLException {
+	public List<PSIStockDetail> getFilteredStockByUserQuery(PSIDatavo datavo,int queryIndex, Object... query) throws SQLException {
 		// TODO Auto-generated method stub
-		return this.respository.getFilteredStockByUserQuery(queryIndex, query);
+		return this.respository.getFilteredStockByUserQuery(datavo,queryIndex, query);
+	}
+
+	@Override
+	public boolean isMillAvailability(PSIDatavo datavo,String... milldetails)throws SQLException {
+		// TODO Auto-generated method stub
+		return this.respository.isMillAvailability(datavo,milldetails);
 	}
 
 }

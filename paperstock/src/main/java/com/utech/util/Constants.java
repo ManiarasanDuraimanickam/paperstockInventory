@@ -9,6 +9,7 @@ public final class Constants {
 	public static final String PSIDATAVO = "PSIDatavo";
 	public static final String STR_FINACIAL_YEAR = "finacialYear";
 	public static final String LOGIN_ERROR_KEY="validationfailed";
+	public static final String SESSION_EXPIRED_TXT="Your session has expired..";
 
 	public final static Logger logger = Logger.getLogger(Constants.class);
 

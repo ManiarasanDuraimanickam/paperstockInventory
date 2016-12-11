@@ -18,86 +18,6 @@
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
-               <!-- <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
-                    <ul class="dropdown-menu message-dropdown">
-                        <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="message-footer">
-                            <a href="#">Read All New Messages</a>
-                        </li>
-                    </ul>
-                </li>-->
-                <!--<li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
-                    <ul class="dropdown-menu alert-dropdown">
-                        <li>
-                            <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">View All</a>
-                        </li>
-                    </ul>
-                </li>-->
                 <!-- logged in user profiles and other stuffs here-->
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> ${(PSIDatavo.userinfo.username)!"User"} <b class="caret"></b></a>
@@ -133,292 +53,167 @@
                 <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">
-                           <small><i class="fa fa-desktop"></i> Mill Details</small>
+                     <h1 class="page-header">
+                            <small><i class="fa fa-desktop"></i> Mill Detail</small>
                         </h1>
-                       <!-- <ol class="breadcrumb">
+                        <!--<ol class="breadcrumb">
                             <li class="active">
-                                <i class="fa fa-desktop"></i> Mill Details
+                                <i class="fa fa-bar-chart-o"></i> Purchase
                             </li>
-                        </ol>-->
+                        </ol>
+                        <div class="dividerborder">
+                        </div>-->
                     </div>
                 </div>
                 <!-- /.row -->
 
-               <!-- <div class="row">
-                    <div class="col-lg-12">
-                        <div class="alert alert-info alert-dismissable">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            <i class="fa fa-info-circle"></i>  <strong>Like Paper Stock?</strong> Try out <a href="#" class="alert-link">Paper Stock</a> for additional features!
-                        </div>
-                    </div>
-                </div>-->
-                <!-- /.row -->
+              <div class="row">
+               	<div class="col-lg-12 col-md-12 col-sm-12">
+               		<div class="panel" id="messagePanel">
+               		</div>
+               	</div>
+              </div>
 
                 <div class="row">
-                 <#list PSIDatavo.stockDetails as stockdetail>
-	                 <#list stockdetail.paperDetail as paperdetail>
-	                 	<div class="col-lg-3 col-md-6">
-                     		<div class="panel <#if (paperdetail.stock?eval gt 130)>panel-green<#elseif (paperdetail.stock?eval gt 100 )>panel-primary<#elseif (paperdetail.stock?eval gt 50 )>panel-yellow<#elseif (paperdetail.stock?eval < 50 )> panel-red</#if>">
-	                            <div class="panel-heading">
-	                                <div class="row">
-	                                    <div class="col-xs-3">
-	                                        <i class="fa fa-comments fa-2x"></i>
-	                                        ${stockdetail.millname!}
-											<div>
-												<ul style="padding-left: 1em;margin: 0;">
-				                                    <li>${paperdetail.gsm!}GSM</li>
-				                                    <li>${paperdetail.size!}</li>
-		                                    	</ul>
-											</div>
-	                                    </div>
-	                                    
-	                                    <div class="col-xs-9 text-right">
-	                                        <div class="huge">${paperdetail.stock!}kg</div>
-	                                        <div>${paperdetail.grade!}</div>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                            <a href="#">
-	                                <div class="panel-footer">
-	                                    <span class="pull-left">View Details</span>
-	                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-	                                    <div class="clearfix"></div>
-	                                </div>
-	                            </a>
-		                      </div>
-		                  </div>
-	                 </#list>
-                 </#list>
+	                <div class="col-lg-6 col-md-6 col-xs-12">
+		                <div class="table-responsive">
+		                <form method="post" id="milldetailsform" name="milldetailsform" action="milldetails">
+	                        <table class="table table-hover borderless">
+	                            <tbody>
+	                                <tr>
+	                                	<th>Mill Name</th> 
+	                                    <td>
+		                                    <input name="millname" type="text" class="inputsize"/><i class="mandatoryIcon">*</i>
+		                                 </td>
+	                                  </tr>
+	                                  <tr>
+	                                 	 <th>GSM</th>
+		                                    <td>
+		                                    <input name="gsm" type="text" class="inputsize"/><i class="mandatoryIcon">*</i>
+		                                    </td>
+		                                  </tr>
+		                                  <tr>
+		                                  	<th>Grade</th>
+	                                    	<td>
+	                                    	<input name="grade" type="text" class="inputsize"/><i class="mandatoryIcon">*</i>
+	                                    	</td>
+	                                      </tr>
+	                                      <tr>
+	                                      	<th>SIZE</th>
+	                                      	<td>
+	                                      	<input name="size" type="text" class="inputsize"/><i class="mandatoryIcon">*</i>
+		                                    </td>
+	                                   	  </tr>
+	                                    	<th>Phone</th>
+	                                    	<td><input type="text" name="phone" class="inputsize"/></td>
+	                                    <tr>
+		                                    <th>Email</th>
+		                                    <td><input type="text" name="email" class="inputsize"/></td>
+	                                	</tr>
+	                                	 <tr>
+		                                   	  <th>address</th>
+		                                   	  <td><textarea name="address" maxlength="45" class="inputsize"></textarea></td>
+	                                   	  </tr>
+	                                   	  </tr>
+	                                	<tr>
+		                                   	  <th>Remarks</th>
+		                                   	  <td><textarea name="remarks" maxlength="255" class="inputsize"></textarea></td>
+	                                   	  </tr>
+	                                	<tr>
+	                                	<th></th>
+	                                	<td>
+	                                		<div class="row">
+	                                			<div class="col-lg-12 col-md-12 col-xs-12">
+		                                			<input type="button" value="Availability" id="milldetailsAvailable" class="btn-primary"/>
+		                                			<input type="submit" value="Save" id="milldetailsSubmit"class="btn-success" />
+	                                			</div>
+	                                		</div>
+	                                	</td>
+	                                	</tr>
+	                            </tbody>
+	                        </table>
+	                        </form>
+	                     </div>
+                     </div>
                 </div>
-                   <!-- <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-green">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-tasks fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">12</div>
-                                        <div>New Tasks!</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-yellow">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-shopping-cart fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">124</div>
-                                        <div>New Orders!</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-red">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-support fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">13</div>
-                                        <div>Support Tickets!</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>-->
-                <!-- /.row -->
-	<!--waves chart--
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Area Chart</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div id="morris-area-chart"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div-->
-                <!-- /.row -->
-<!--waves chart-- circle chart--
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-long-arrow-right fa-fw"></i> Donut Chart</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div id="morris-donut-chart"></div>
-                                <div class="text-right">
-                                    <a href="#">View Details <i class="fa fa-arrow-circle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>-->
-                    <!-- task panel
-                    <div class="col-lg-4">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i> Tasks Panel</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div class="list-group">
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">just now</span>
-                                        <i class="fa fa-fw fa-calendar"></i> Calendar updated
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">4 minutes ago</span>
-                                        <i class="fa fa-fw fa-comment"></i> Commented on a post
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">23 minutes ago</span>
-                                        <i class="fa fa-fw fa-truck"></i> Order 392 shipped
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">46 minutes ago</span>
-                                        <i class="fa fa-fw fa-money"></i> Invoice 653 has been paid
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">1 hour ago</span>
-                                        <i class="fa fa-fw fa-user"></i> A new user has been added
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">2 hours ago</span>
-                                        <i class="fa fa-fw fa-check"></i> Completed task: "pick up dry cleaning"
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">yesterday</span>
-                                        <i class="fa fa-fw fa-globe"></i> Saved the world
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">two days ago</span>
-                                        <i class="fa fa-fw fa-check"></i> Completed task: "fix error on sales page"
-                                    </a>
-                                </div>
-                                <div class="text-right">
-                                    <a href="#">View All Activity <i class="fa fa-arrow-circle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>-->
-                    <!-- transaction panel--
-                    <div class="col-lg-4">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Transactions Panel</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-hover table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Order #</th>
-                                                <th>Order Date</th>
-                                                <th>Order Time</th>
-                                                <th>Amount (USD)</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>3326</td>
-                                                <td>10/21/2013</td>
-                                                <td>3:29 PM</td>
-                                                <td>$321.33</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3325</td>
-                                                <td>10/21/2013</td>
-                                                <td>3:20 PM</td>
-                                                <td>$234.34</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3324</td>
-                                                <td>10/21/2013</td>
-                                                <td>3:03 PM</td>
-                                                <td>$724.17</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3323</td>
-                                                <td>10/21/2013</td>
-                                                <td>3:00 PM</td>
-                                                <td>$23.71</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3322</td>
-                                                <td>10/21/2013</td>
-                                                <td>2:49 PM</td>
-                                                <td>$8345.23</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3321</td>
-                                                <td>10/21/2013</td>
-                                                <td>2:23 PM</td>
-                                                <td>$245.12</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3320</td>
-                                                <td>10/21/2013</td>
-                                                <td>2:15 PM</td>
-                                                <td>$5663.54</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3319</td>
-                                                <td>10/21/2013</td>
-                                                <td>2:13 PM</td>
-                                                <td>$943.45</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="text-right">
-                                    <a href="#">View All Transactions <i class="fa fa-arrow-circle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>-->
-                <!-- /.row -->
-
-            </div>
+             </div>
             <!-- /.container-fluid -->
-
         </div>
         <!-- /#page-wrapper -->
-
     </div>
+
+<script type="text/javascript">
+$(document).ready(function(){ 	
+	formValidation();
+	millavailabilityCheck();
+});
+function formValidation(){
+	$("form").submit(function(){
+		enableDisableInput(true);
+		if(!mandatoryFieldCheck()){
+			scrollToErrorMsg($("input[name=gsm]").scrollTop());
+			alert("Enter the values in all the given Mandatory Fields(Millname, GSM, Grade & Size)");
+			return false;
+		}
+	});
+}
+
+
+function millavailabilityCheck(){
+	$("#milldetailsAvailable").click(function(){
+		enableDisableInput(true);
+		var data=mandatoryFieldCheck();
+		if(data.length===0){
+			scrollToErrorMsg($("input[name=gsm]").scrollTop());
+			alert("Enter the values in all the given Mandatory Fields(Millname, GSM, Grade & Size)");
+			enableDisableInput(false);
+			return false;
+		}
+		ajaxCall(data);
+		enableDisableInput(false);
+	});
+}
+function enableDisableInput(isDisable){
+	if(isDisable){
+		$("#milldetailsSubmit").attr('disabled','');
+		$("#milldetailsAvailable").attr('disabled','');
+	}
+	else{
+		$("#milldetailsSubmit").removeAttr('disabled');
+		$("#milldetailsAvailable").removeAttr('disabled');
+	}
+}
+function mandatoryFieldCheck(){
+		var mill=$("input[name=millname]").val();
+		var gsm=$("input[name=gsm]").val();
+		var grade=$("input[name=grade]").val();
+		var size=$("input[name=size]").val();
+		if(mill.length===0||gsm.length===0||grade.length===0||size.length===0){
+			return "";
+		}
+		var data="millname="+mill;
+		data=data+"&gsm="+gsm;
+		data=data+"&grade="+grade;
+		return data+"&size="+size;
+}
+function scrollToErrorMsg(position){
+	 $('html, body').animate({ scrollTop: 0}, position);
+}
+function ajaxCall(data){
+		var url="http://localhost:8080/paperstock/milldetails"
+		$.ajax({
+			type:"OPTIONS",
+			url:url+"?"+data,
+			data:data,
+			dataType:"text",
+			success:function(data){
+					alert("success "+data);
+					},
+			error:function(data){
+					alert("error "+data);
+				  }
+		});
+}
+</script>
     </body>
     </html>

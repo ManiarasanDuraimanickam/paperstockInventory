@@ -240,3 +240,18 @@ ul.alert-dropdown {
 	border-radius: 12%;
 	border: 2px solid green;
 }
+
+.mandatoryIcon {
+	font-weight: bold;
+	font-size: 1em;
+	color: red;
+}
+
+.inputsize {
+	resize: none;
+	width: 49%;
+}
+
+.borderless>tbody>tr>td, .borderless>tbody>tr>th, .borderless>tfoot>tr>td {
+	border: none;
+}

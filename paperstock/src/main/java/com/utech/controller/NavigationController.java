@@ -53,7 +53,7 @@ public class NavigationController extends HttpServlet {
 		RequestDispatcher dispatcher = null;
 		if (!ControllerUtil.checkUserSession(request)) {
 			dispatcher = ControllerUtil.redirectToLoginpage(request, Constants.LOGIN_ERROR_KEY,
-					"Your session has expired..");
+					Constants.SESSION_EXPIRED_TXT);
 			return dispatcher;
 		}
 		switch (page) {

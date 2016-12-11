@@ -24,7 +24,8 @@ public class PSIRepositoryImpl implements PSIRespository {
 
 	private static final String[] query = {
 			"select * from auth where uname=? and pass=? and rights=? and financialYear=?",
-			"select * from stockdetails inner join milldetails on stockdetails.mill_id=milldetails.sno;" };
+			"select * from stockdetails inner join milldetails on stockdetails.mill_id=milldetails.sno;",
+			"select * from milldetails where milldetails.millname=? and milldetails.gsm=? and milldetails.grade=? and milldetails.size=?; "};
 	private static final String[] stockFilterQuery={"select * from stockdetails inner join milldetails on stockdetails.mill_id=milldetails.sno where milldetails.millname=?;",
 			"select * from stockdetails inner join milldetails on stockdetails.mill_id=milldetails.sno where milldetails.millname=? and milldetails.gsm=?;",
 			"select * from stockdetails inner join milldetails on stockdetails.mill_id=milldetails.sno where milldetails.millname=? and milldetails.gsm=? and milldetails.grade=?;",
@@ -65,7 +66,7 @@ public class PSIRepositoryImpl implements PSIRespository {
 	}
 
 	@Override
-	public List<PSIStockDetail> getFilteredStockByUserQuery(int queryIndex, Object... query) throws SQLException {
+	public List<PSIStockDetail> getFilteredStockByUserQuery(PSIDatavo datavo,int queryIndex, Object... query) throws SQLException {
 		List<PSIStockDetail> psiStockDetails = null;
 		try {
 			Connection connection = this.connection.getConnection();
@@ -80,6 +81,24 @@ public class PSIRepositoryImpl implements PSIRespository {
 			this.connection.getConnection().close();
 		}
 		return psiStockDetails;
+	}
+
+	@Override
+	public boolean isMillAvailability(PSIDatavo datavo,String... milldetails) throws SQLException {
+		boolean valid = false;
+		try {
+			Connection connection = this.connection.getConnection();
+			PreparedStatement pst = connection.prepareStatement(query[2]);
+			int index=0;
+			for(String str:milldetails){
+				pst.setString(++index, str);
+			}
+			ResultSet resultSet = pst.executeQuery();
+			valid = !resultSet.wasNull() && resultSet.next() ? (Boolean) resultSet.getObject("rights") : false;
+		} finally {
+			this.connection.getConnection().close();
+		}
+		return valid;
 	}
 
 }

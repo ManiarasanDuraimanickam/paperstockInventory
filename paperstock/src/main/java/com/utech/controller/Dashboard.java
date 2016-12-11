@@ -37,7 +37,7 @@ public class Dashboard extends HttpServlet {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		if (!ControllerUtil.checkUserSession(request)) {
 			RequestDispatcher dispatcher = ControllerUtil.redirectToLoginpage(request, Constants.LOGIN_ERROR_KEY,
-					"Your session has expired..");
+					Constants.SESSION_EXPIRED_TXT);
 			dispatcher.forward(request, response);
 		}
 	}

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.utech.model.PSIDatavo;
 import com.utech.model.PSIStockDetail;
 import com.utech.service.PSIService;
 import com.utech.service.PSIServiceImpl;
@@ -42,13 +43,12 @@ public class StockFilterController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		RequestDispatcher dispatcher = null;
 		if (!ControllerUtil.checkUserSession(request)) {
-			dispatcher = ControllerUtil.redirectToLoginpage(request, Constants.LOGIN_ERROR_KEY,
-					"Your session has expired..");
-			dispatcher.forward(request, response);
+			response.getWriter().write(Constants.SESSION_EXPIRED_TXT);
+			return ;
 		}
 		int queryIndex = Integer.parseInt(request.getParameter("queryIndex"));
+		PSIDatavo datavo = (PSIDatavo) request.getSession().getAttribute(Constants.PSIDATAVO);
 		List<String> query = new ArrayList<>();
 		switch (queryIndex) {
 		case 0:
@@ -71,11 +71,12 @@ public class StockFilterController extends HttpServlet {
 			break;
 		}
 		try {
-			List<PSIStockDetail>stockDetail=PSI_SERVICE.getFilteredStockByUserQuery(queryIndex, query.toArray());
-			Gson gson=new Gson();
-			String responseData=gson.toJson(stockDetail);
+			List<PSIStockDetail> stockDetail = PSI_SERVICE.getFilteredStockByUserQuery(datavo, queryIndex,
+					query.toArray());
+			Gson gson = new Gson();
+			String responseData = gson.toJson(stockDetail);
 			response.setContentType("application/json");
-			StringBuilder builder=new StringBuilder();
+			StringBuilder builder = new StringBuilder();
 			builder.append(",");
 			builder.append("\"");
 			builder.append("queryIndex");
@@ -85,8 +86,8 @@ public class StockFilterController extends HttpServlet {
 			builder.append(queryIndex);
 			builder.append("\"");
 			builder.append("}]");
-			responseData=responseData.substring(0, responseData.lastIndexOf("}"));
-			responseData=responseData.concat(builder.toString());
+			responseData = responseData.substring(0, responseData.lastIndexOf("}"));
+			responseData = responseData.concat(builder.toString());
 			response.getWriter().write(responseData);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -134,7 +134,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                      <h1 class="page-header">
-                            <small><i class="fa fa-bar-chart-o"></i> Purchase</small>
+                            <small><i class="fa fa-table"></i> Stockout</small>
                         </h1>
                         <!--<ol class="breadcrumb">
                             <li class="active">
