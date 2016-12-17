@@ -18,86 +18,6 @@
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
-               <!-- <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
-                    <ul class="dropdown-menu message-dropdown">
-                        <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="message-footer">
-                            <a href="#">Read All New Messages</a>
-                        </li>
-                    </ul>
-                </li>-->
-                <!--<li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
-                    <ul class="dropdown-menu alert-dropdown">
-                        <li>
-                            <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">View All</a>
-                        </li>
-                    </ul>
-                </li>-->
                 <!-- logged in user profiles and other stuffs here-->
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> ${(PSIDatavo.userinfo.username)!"User"} <b class="caret"></b></a>
@@ -136,51 +56,38 @@
                      <h1 class="page-header">
                             <small><i class="fa fa-bar-chart-o"></i> Purchase</small>
                         </h1>
-                        <!--<ol class="breadcrumb">
-                            <li class="active">
-                                <i class="fa fa-bar-chart-o"></i> Purchase
-                            </li>
-                        </ol>
-                        <div class="dividerborder">
-                        </div>-->
                     </div>
                 </div>
                 <!-- /.row -->
-
-               <!-- <div class="row">
-                    <div class="col-lg-12">
-                        <div class="alert alert-info alert-dismissable">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            <i class="fa fa-info-circle"></i>  <strong>Like Paper Stock?</strong> Try out <a href="#" class="alert-link">Paper Stock</a> for additional features!
-                        </div>
-                    </div>
-                </div>-->
-                <!-- /.row -->
-
+				<#include 'messagepanel.ftl'/>
                 <div class="row">
-	                <div class="col-lg-6 col-md-6 col-xs-12">
+	                <div class="col-lg-4 col-md-4 col-xs-12">
 		                <div class="table-responsive">
 		                <form method="post" id="purchaseform"name="purchaseform" action="stockin">
-	                        <table class="table table-bordered table-hover table-striped">
+	                        <table class="table table-hover borderless tblcontentalignrigth">
 	                            <tbody>
 	                                <tr>
-	                                	<th>Mill</th> 
+	                                	<th>Mill<i class="mandatoryIcon">*</i></th> 
 	                                    <td>
+	                                    <#assign millname=[]>
 		                                    <select name="millname" class="stockFilterSelect">
 		                                    <option value="">Select Mill</option>
-		                                     <#list PSIDatavo.stockDetails as stockdetail>
-		                                      <option value="${stockdetail.millname}">${stockdetail.millname}</option>
+		                                     <#list milldetails as stockdetail>
+		                                      <#if !(millname?seq_contains(stockdetail.millname))>
+		                                     	 <option value="${stockdetail.millname}">${stockdetail.millname}</option>
+		                                     	 <#assign millname=millname+[stockdetail.millname]/>
+		                                      </#if>
 											</#list>
 		                                    </seclect>
 		                                    </td>
 	                                  </tr>
 	                                  <tr>
-	                                 	 <th>GSM</th>
+	                                 	 <th>GSM<i class="mandatoryIcon">*</i></th>
 		                                    <td>
 			                                    <#assign gsm=[]>
 			                                    <select name="gsm" class="stockFilterSelect">
 			                                    <option value="">Select GSM</option>
-			                                     <#list PSIDatavo.stockDetails as stockdetail>
+			                                     <#list milldetails as stockdetail>
 				                                    <#list stockdetail.paperDetail as paperdetail>
 				                                    <#if !(gsm?seq_contains(paperdetail.gsm))>
 				                                    <option value="${paperdetail.gsm}">${paperdetail.gsm}</option>
@@ -192,12 +99,12 @@
 		                                    </td>
 		                                  </tr>
 		                                  <tr>
-		                                  	<th>Grade</th>
+		                                  	<th>Grade<i class="mandatoryIcon">*</i></th>
 	                                    	<td>
 	                                    		<#assign grade=[]>
 			                                    <select name="grade" class="stockFilterSelect">
 			                                    <option value="">Select Grade</option>
-			                                     <#list PSIDatavo.stockDetails as stockdetail>
+			                                     <#list milldetails as stockdetail>
 				                                    <#list stockdetail.paperDetail as paperdetail>
 				                                    <#if !(grade?seq_contains(paperdetail.grade))>
 				                                    <option value="${paperdetail.grade}">${paperdetail.grade}</option>
@@ -209,12 +116,12 @@
 	                                    	</td>
 	                                      </tr>
 	                                      <tr>
-	                                      	<th>SIZE</th>
+	                                      	<th>SIZE<i class="mandatoryIcon">*</i></th>
 	                                      	<td>
 	                                   	  		<#assign size=[]>
 			                                    <select name="size" class="stockFilterSelect">
 			                                    <option value="">Select Size</option>
-			                                     <#list PSIDatavo.stockDetails as stockdetail>
+			                                     <#list milldetails as stockdetail>
 				                                    <#list stockdetail.paperDetail as paperdetail>
 				                                    <#if !(size?seq_contains(paperdetail.size))>
 				                                    <option value="${paperdetail.size}">${paperdetail.size}</option>
@@ -227,23 +134,58 @@
 	                                   	  </tr>
 	                                   	  <tr>
 		                                   	  <th>Stock In Hand</th>
-		                                   	  <td><span id="stockInHand">0</span></td>
+		                                   	  <td>
+		                                   	  	<span id="stockInHand">0</span>
+		                                   	  	<input id="currentStock" type="hidden" name="currentStock" value="0"/>
+		                                   	  </td>
 	                                   	  </tr>
 	                                   	  </tr>
-	                                    	<th>Purchase</th>
+	                                    	<th>Purchase<i class="mandatoryIcon">*</i></th>
 	                                    	<td><input type="text" class="cursorNotAllowed" name="purchase" disabled="" value="0"/></td>
 	                                    <tr>
+	                                    <tr>
+	                                    	<th>remarks</th>
+	                                    	<td><textarea name="remarks"></textarea>
+	                                    </tr>
 	                                    <th>Total</th>
 	                                    <td><span id="purchasetotal" class="totalstock">0</span></td>
 	                                	</tr>
 	                                	<tr>
 	                                	<th></th>
-	                                	<td><input type="submit" value="Submit" id="purchaseSubmit"/></td>
+	                                	<td>
+	                                		<input id="selectedMill" type="hidden" name="selectedMill" value="0"/>
+	                                		<input type="submit" value="Submit" id="purchaseSubmit"class="btn-primary"/>
+	                                	</td>
 	                                	</tr>
 	                            </tbody>
 	                        </table>
 	                        </form>
 	                     </div>
+                     </div>
+                     <div class="col-lg-8 col-md-8 col-xs-12">
+		                <div class="table-responsive">
+	                     	 <table class="table table-bordered table-hover table-striped">
+		                     	 <thead>
+		                     	 	<tr>
+		                     	 		<th>Sno</th>
+		                     	 		<th>Mill</th>
+		                     	 		<th>Gsm</th>
+		                     	 		<th>Grade</th>
+		                     	 		<th>Size</th>
+		                     	 		<th>opening</th>
+		                     	 		<th>Purchase</th>
+		                     	 		<th>closing</th>
+		                     	 		<th> date</th>
+		                     	 		<th>Edit</th>
+		                     	 	</tr>
+		                     	 </thead>
+		                     	 <tbody>
+		                     	 	<tr>
+		                     	 		<td></td>
+		                     	 	</tr>
+		                     	 </tbody>
+	                     	 </table>
+                     	 </div>
                      </div>
                 </div>
              </div>
@@ -262,7 +204,13 @@ $(document).ready(function(){
 	purchaseKeyPress()
 	purchaseBlur(); 			   
 	submitFormValidation();
-	
+	<#if (savestatus?? && savestatus?length>0 )>
+		<#if savestatus=="Your record has been saved successfully..!">
+			showSuccessMsg("${savestatus}");
+		<#elseif savestatus=="We are facing some technical issue so cannot save your record.">
+			showErrorMsg("${savestatus}");
+		</#if>
+	</#if>
 });
 
 function filterValueByMill(){
@@ -404,14 +352,42 @@ function purchaseBlur(){
 	
 function submitFormValidation(){
 		$("form").submit(function(event){
-			event.preventDefault();
 			var millname=$("select[name=millname]").val();
+			hideError($("select[name=millname]"));
+			hideError($("select[name=gsm]"));
+			hideError($("select[name=grade]"));
+			hideError($("select[name=size]"));
+			hideError($("input[name=purchase]"));
 			if(millname.length===0){
-				$("select[name=millname]").addClass('errorMsgBorder');
-				scrollToErrorMsg($("select[name=millname]").scrollTop());
+				showError($("select[name=millname]"));
+				return false;
+			}
+			else if($("select[name=gsm]").val().length==0){
+				showError($("select[name=gsm]"));
+				return false;
+			}
+			else if($("select[name=grade]").val().length==0){
+				showError($("select[name=grade]"));
+				return false;
+			}
+			else if($("select[name=size]").val().length==0){
+				showError($("select[name=size]"));
+				return false;
+			}
+			else if(!($("input[name=purchase]").val()>0)){
+				showError($("input[name=purchase]"));
 				return false;
 			}
 		});
+	}
+	
+	function hideError(element){
+		$(element).removeClass('errorMsgBorder');
+	}
+	function showError(element){
+		$(element).addClass('errorMsgBorder');
+		scrollToErrorMsg($("select[name=millname]").scrollTop());
+		return false;
 	}
 	
 	function scrollToErrorMsg(position){
@@ -423,7 +399,9 @@ function submitFormValidation(){
 		var responseJson=data[0];
 		var queryIndex=responseJson.queryIndex;
 		var paperDetails=responseJson.paperDetail;
-		displayAvaliableStock(0);
+		var millid=responseJson.millid;
+		displayAvaliableStock(0,true);
+		$("input#selectedMill").val(millid);
 		switch(queryIndex){
 			case "0":
 				updateGSMSelect(paperDetails);
@@ -438,7 +416,7 @@ function submitFormValidation(){
 				updateSizeSelect(paperDetails);
 			break;
 			case "3":
-				displayAvaliableStock(paperDetails[0].stock);
+				displayAvaliableStock(paperDetails===undefined?0:paperDetails[0].stock,false);
 			break;
 		}
 	}
@@ -493,9 +471,10 @@ function submitFormValidation(){
 		sizeSelect.html("");
 		sizeSelect.html(options);
 	}
-	function displayAvaliableStock(stock){
+	function displayAvaliableStock(stock,close){
 		$("#stockInHand").text(stock);
-		if(stock>0){
+		$("input#currentStock").val(stock);
+		if(!close){
 			$("input[name=purchase]").removeClass("cursorNotAllowed");
 			$("input[name=purchase]").removeAttr("disabled");
 		}

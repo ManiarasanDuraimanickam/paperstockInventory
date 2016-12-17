@@ -56,52 +56,40 @@
                      <h1 class="page-header">
                             <small><i class="fa fa-desktop"></i> Mill Detail</small>
                         </h1>
-                        <!--<ol class="breadcrumb">
-                            <li class="active">
-                                <i class="fa fa-bar-chart-o"></i> Purchase
-                            </li>
-                        </ol>
-                        <div class="dividerborder">
-                        </div>-->
                     </div>
                 </div>
                 <!-- /.row -->
 
-              <div class="row">
-               	<div class="col-lg-12 col-md-12 col-sm-12">
-               		<div class="panel" id="messagePanel">
-               		</div>
-               	</div>
-              </div>
+             <#include 'messagepanel.ftl'/>
 
                 <div class="row">
-	                <div class="col-lg-6 col-md-6 col-xs-12">
-		                <div class="table-responsive">
+	                <div class="col-lg-4 col-md-4 col-xs-12">
+		               
 		                <form method="post" id="milldetailsform" name="milldetailsform" action="milldetails">
-	                        <table class="table table-hover borderless">
+	                        <table class="table table-hover borderless tblcontentalignrigth">
 	                            <tbody>
 	                                <tr>
-	                                	<th>Mill Name</th> 
+	                                	<th>Mill Name<i class="mandatoryIcon">*</i></th> 
 	                                    <td>
-		                                    <input name="millname" type="text" class="inputsize"/><i class="mandatoryIcon">*</i>
+		                                    <input name="millname" type="text" class="inputsize"/>
 		                                 </td>
 	                                  </tr>
 	                                  <tr>
-	                                 	 <th>GSM</th>
+	                                 	 <th>GSM<i class="mandatoryIcon">*</i></th>
 		                                    <td>
-		                                    <input name="gsm" type="text" class="inputsize"/><i class="mandatoryIcon">*</i>
+		                                    <input name="gsm" type="text" class="inputsize"/>
 		                                    </td>
 		                                  </tr>
 		                                  <tr>
-		                                  	<th>Grade</th>
+		                                  	<th>Grade<i class="mandatoryIcon">*</i></th>
 	                                    	<td>
-	                                    	<input name="grade" type="text" class="inputsize"/><i class="mandatoryIcon">*</i>
+	                                    	<input name="grade" type="text" class="inputsize"/>
 	                                    	</td>
 	                                      </tr>
 	                                      <tr>
-	                                      	<th>SIZE</th>
+	                                      	<th>SIZE<i class="mandatoryIcon">*</i></th>
 	                                      	<td>
-	                                      	<input name="size" type="text" class="inputsize"/><i class="mandatoryIcon">*</i>
+	                                      	<input name="size" type="text" class="inputsize"/>
 		                                    </td>
 	                                   	  </tr>
 	                                    	<th>Phone</th>
@@ -124,6 +112,7 @@
 	                                	<td>
 	                                		<div class="row">
 	                                			<div class="col-lg-12 col-md-12 col-xs-12">
+	                                				<input id="editselected" type="hidden" name="editselected" value="0"/>
 		                                			<input type="button" value="Availability" id="milldetailsAvailable" class="btn-primary"/>
 		                                			<input type="submit" value="Save" id="milldetailsSubmit"class="btn-success" />
 	                                			</div>
@@ -133,8 +122,66 @@
 	                            </tbody>
 	                        </table>
 	                        </form>
-	                     </div>
+	                     
                      </div>
+                     <div class="col-lg-8 col-md-8 col-xs-12">
+		                <div class="table-responsive">
+		                	 <table class="table table-bordered table-hover">
+		                	 <thead>
+		                	 <tr>
+		                		<th>ID</th> 
+		                	 	<th>Name</th> 
+	                            <th>GSM</th>
+	                            <th>Grade</th>
+		                        <th>SIZE</th>
+	                          <!--   <th>Phone</th>
+	                           <th>Email</th>-->
+		                        <th>address</th>
+		                      <!--  <th>Remarks</th>-->
+		                        <th>Edit</th>
+		                        </tr>
+		                	 </thead>
+	                            <tbody>
+	                           <#list milldetails as stockdetail>
+	                			 <#list stockdetail.paperDetail as paperdetail>
+	                             <tr millname="${stockdetail.millname!}" gsm="${paperdetail.gsm!}" grade="${paperdetail.grade!}" size="${paperdetail.size!}" phone="${stockdetail.contactNum!}" mailid="${stockdetail.mailId!}" address="${stockdetail.address!}" remarks="${paperdetail.remarks!}">
+                                    <td>
+		                            	${stockdetail.millid!}
+		                            </td>
+		                            <td>
+		                            	${stockdetail.millname!}
+		                            </td>
+		                            <td>
+		                            	${paperdetail.gsm!}
+		                            </td>
+		                             <td>
+		                            	${paperdetail.grade!}
+		                            </td>
+		                            <td>
+		                            	${paperdetail.size!}
+		                            </td>
+		                           <#--   <td>
+		                            	${stockdetail.contactNum!}
+		                            </td>
+		                            <td>
+		                            	${stockdetail.mailId!}
+		                            </td>-->
+		                             <td>
+		                            	${stockdetail.address!}
+		                            </td>
+		                         <#--   <td>
+		                            	${paperdetail.remarks!}
+		                            </td>-->
+		                            <td>
+			                            <input type="button" value="Edit " edit="true" millid="${stockdetail.millid!}" name="millEditSelectBtn_${stockdetail.millid!}" class="btn-warning"/>
+		                            </td>
+	                             </tr>
+	                             </#list>
+								</#list>
+	                            </tbody>
+	                        </table>
+		                </div>
+		             </div>
                 </div>
              </div>
             <!-- /.container-fluid -->
@@ -146,6 +193,14 @@
 $(document).ready(function(){ 	
 	formValidation();
 	millavailabilityCheck();
+	milldetailsEditSelect()
+	<#if (savestatus?? && savestatus?length>0 )>
+		<#if savestatus=="Your record has been saved successfully..!">
+			showSuccessMsg("${savestatus}");
+		<#elseif savestatus=="We are facing some technical issue so cannot save your record.">
+			showErrorMsg("${savestatus}");
+		</#if>
+	</#if>
 });
 function formValidation(){
 	$("form").submit(function(){
@@ -189,7 +244,7 @@ function mandatoryFieldCheck(){
 		var grade=$("input[name=grade]").val();
 		var size=$("input[name=size]").val();
 		if(mill.length===0||gsm.length===0||grade.length===0||size.length===0){
-			return "";
+			return false;
 		}
 		var data="millname="+mill;
 		data=data+"&gsm="+gsm;
@@ -207,13 +262,63 @@ function ajaxCall(data){
 			data:data,
 			dataType:"text",
 			success:function(data){
-					alert("success "+data);
+			if(data==="false")
+			showSuccessMsg("Mill details not Exists, Please save now...");
+			else
+			showErrorMsg("Mill Already Saved..You cannot save this Mill now.");
 					},
 			error:function(data){
-					alert("error "+data);
+					showErrorMsg(data);
 				  }
 		});
 }
+var editrowselected=false;
+function milldetailsEditSelect(){
+	$("input[name^=millEditSelectBtn_]").click(function(){
+		var edit=$(this).attr("edit");
+		if(editrowselected===true && edit==="true"){
+			alert("already an edit row has selected...");
+			return false;
+		}
+		if(edit==="true"){
+			$("input#editselected").val($(this).attr("millid"));
+			$(this).parent().parent("tr").addClass("millTReditSelected");
+			$(this).val("clear");
+			$(this).attr("edit","false");
+			editrowselected=true;
+			fillInputVal($(this).parent().parent("tr"));
+		}else{
+			$("input#editselected").val("0");
+			$(this).parent().parent("tr").removeClass("millTReditSelected");
+			$(this).val("Edit ");
+			$(this).attr("edit","true");
+			editrowselected=false;
+			clearInputVal();
+		}
+	});
+	
+	function fillInputVal(selectedTR){
+		$("input[name=millname]").val(selectedTR.attr("millname"));
+		$("input[name=gsm]").val(selectedTR.attr("gsm"));
+		$("input[name=grade]").val(selectedTR.attr("grade"));
+		$("input[name=size]").val(selectedTR.attr("size"));	
+		$("input[name=phone]").val(selectedTR.attr("phone"));
+		$("input[name=email]").val(selectedTR.attr("mailid"));
+		$("[name=address]").val(selectedTR.attr("address"));
+		$("[name=remarks]").val(selectedTR.attr("remarks"));
+	}
+	function clearInputVal(){
+		$("input[name=millname]").val("");
+		$("input[name=gsm]").val("");
+		$("input[name=grade]").val("");
+		$("input[name=size]").val("");
+		$("input[name=phone]").val("");
+		$("input[name=email]").val("");
+		$("[name=address]").val("");
+		$("[name=remarks]").val("");
+	}
+}
+
 </script>
     </body>
     </html>

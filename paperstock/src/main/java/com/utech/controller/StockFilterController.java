@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,6 +16,7 @@ import com.utech.model.PSIDatavo;
 import com.utech.model.PSIStockDetail;
 import com.utech.service.PSIService;
 import com.utech.service.PSIServiceImpl;
+import com.utech.service.PSIStockoutService;
 import com.utech.util.Constants;
 import com.utech.util.ControllerUtil;
 
@@ -26,7 +26,7 @@ import com.utech.util.ControllerUtil;
 @WebServlet("/stockfilter")
 public class StockFilterController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final PSIService PSI_SERVICE = new PSIServiceImpl();
+	private static PSIService PSI_SERVICE = new PSIServiceImpl();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -45,7 +45,7 @@ public class StockFilterController extends HttpServlet {
 		// TODO Auto-generated method stub
 		if (!ControllerUtil.checkUserSession(request)) {
 			response.getWriter().write(Constants.SESSION_EXPIRED_TXT);
-			return ;
+			return;
 		}
 		int queryIndex = Integer.parseInt(request.getParameter("queryIndex"));
 		PSIDatavo datavo = (PSIDatavo) request.getSession().getAttribute(Constants.PSIDATAVO);
@@ -71,6 +71,10 @@ public class StockFilterController extends HttpServlet {
 			break;
 		}
 		try {
+			String menu = request.getParameter("pageid");
+			if (menu != null && menu.equalsIgnoreCase("stockout")) {
+				PSI_SERVICE = new PSIStockoutService();
+			}
 			List<PSIStockDetail> stockDetail = PSI_SERVICE.getFilteredStockByUserQuery(datavo, queryIndex,
 					query.toArray());
 			Gson gson = new Gson();
@@ -86,8 +90,12 @@ public class StockFilterController extends HttpServlet {
 			builder.append(queryIndex);
 			builder.append("\"");
 			builder.append("}]");
-			responseData = responseData.substring(0, responseData.lastIndexOf("}"));
-			responseData = responseData.concat(builder.toString());
+			if (responseData.length() > 0 && responseData.contains("}")) {
+				responseData = responseData.substring(0, responseData.lastIndexOf("}"));
+				responseData = responseData.concat(builder.toString());
+			} else {
+				responseData = "[{\"queryIndex\":\"" + queryIndex + "\"}]";
+			}
 			response.getWriter().write(responseData);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

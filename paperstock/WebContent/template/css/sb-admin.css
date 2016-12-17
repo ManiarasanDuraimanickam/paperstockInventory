@@ -217,11 +217,11 @@ ul.alert-dropdown {
 
 /** custom css*/
 .errorMsgBorder {
-	border: 1px solid red;
+	border: 1px solid red !important;
 }
 
 .stockFilterSelect {
-	width: 50%;
+	width: 70%;
 	cursor: pointer;
 	border: none;
 	background: #e6e6e6;
@@ -245,6 +245,7 @@ ul.alert-dropdown {
 	font-weight: bold;
 	font-size: 1em;
 	color: red;
+	font-variant-position: super;
 }
 
 .inputsize {
@@ -254,4 +255,18 @@ ul.alert-dropdown {
 
 .borderless>tbody>tr>td, .borderless>tbody>tr>th, .borderless>tfoot>tr>td {
 	border: none;
+}
+.tblcontentalignrigth>tbody>tr>td{
+	text-align:right;
+	width:60%;
+}
+.tblcontentalignrigth>tbody>tr>td>input,.tblcontentalignrigth>tbody>tr>td>textarea,.tblcontentalignrigth>tbody>tr>td>select{
+	width:80%;
+	cursor: pointer;
+}
+.tblcontentalignrigth>tbody>tr>td>input.cursorNotAllowed{
+	cursor: not-allowed;
+}
+.millTReditSelected{
+	background: #f9c4c4;
 }

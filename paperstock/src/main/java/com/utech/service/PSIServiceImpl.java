@@ -45,4 +45,33 @@ public class PSIServiceImpl implements PSIService {
 		return this.respository.isMillAvailability(datavo,milldetails);
 	}
 
+	@Override
+	public boolean doSaveMillDetails(PSIDatavo datavo, PSIStockDetail detail) throws SQLException {
+		// TODO Auto-generated method stub
+		return this.respository.doSaveMillDetails(datavo, detail);
+	}
+
+	@Override
+	public boolean updateMillDetail(PSIDatavo datavo,PSIStockDetail milldetails) throws SQLException {
+		// TODO Auto-generated method stub
+		return this.respository.updateMillDetail(datavo,milldetails);
+	}
+
+	@Override
+	public List<PSIStockDetail> getMillDetails(PSIDatavo datavo) throws SQLException {
+		return this.respository.getMillDetails(datavo);
+	}
+
+	@Override
+	public boolean getStockIn(PSIDatavo datavo, PSIStockDetail detail) throws SQLException {
+		// TODO Auto-generated method stub
+		return this.respository.getStockIn(datavo,detail);
+	}
+
+	@Override
+	public boolean getStockout(PSIDatavo datavo, PSIStockDetail detail) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

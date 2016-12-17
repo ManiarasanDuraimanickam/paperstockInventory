@@ -12,9 +12,10 @@ public class PaperDetail implements Serializable {
 	private String grade;
 	private String size;
 	private double stockIn;
-	private String stock;
+	private double stock;
 	private double stockOut;
 	private String remarks;
+	private double closing ;
 
 	public String getGsm() {
 		return gsm;
@@ -48,11 +49,11 @@ public class PaperDetail implements Serializable {
 		this.stockIn = stockIn;
 	}
 
-	public String getStock() {
+	public double getStock() {
 		return stock;
 	}
 
-	public void setStock(String stock) {
+	public void setStock(double stock) {
 		this.stock = stock;
 	}
 
@@ -70,5 +71,13 @@ public class PaperDetail implements Serializable {
 
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
+	}
+
+	public double getClosing() {
+		return closing;
+	}
+
+	public void setClosing(double closing) {
+		this.closing = closing;
 	}
 }

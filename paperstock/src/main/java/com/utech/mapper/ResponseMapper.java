@@ -11,4 +11,6 @@ public interface ResponseMapper {
 
 	List<PSIStockDetail> getAllStockDetails(ResultSet resultSet, PSIDatavo datavo) throws SQLException;
 
+	List<PSIStockDetail> getMillDetails(ResultSet resultSet, PSIDatavo datavo) throws SQLException;
+
 }

@@ -12,6 +12,7 @@ public class PSIStockDetail implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private int millid;
 	private String millname;
 	private String address;
 	private String mailId;
@@ -68,6 +69,14 @@ public class PSIStockDetail implements Serializable {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public int getMillid() {
+		return millid;
+	}
+
+	public void setMillid(int millid) {
+		this.millid = millid;
 	}
 
 }
