@@ -157,6 +157,46 @@
 	                        </form>
 	                     </div>
                      </div>
+                      <div class="col-lg-8 col-md-8 col-xs-12">
+		                <div class="table-responsive">
+	                     	 <table class="table table-bordered table-hover table-striped">
+		                     	 <thead>
+		                     	 	<tr>
+		                     	 		<th>Sno</th>
+		                     	 		<th>Mill</th>
+		                     	 		<th>Gsm</th>
+		                     	 		<th>Grade</th>
+		                     	 		<th>Size</th>
+		                     	 		<th>opening</th>
+		                     	 		<th>Stock-out</th>
+		                     	 		<th>closing</th>
+		                     	 		<th>Created</th>
+		                     	 		<th>Edit</th>
+		                     	 	</tr>
+		                     	 </thead>
+		                     	 <tbody>
+		                     	  <#assign index=0/>
+		                     	 <#list last30DaysTrans as milldetails>
+			                     	 <#list milldetails.paperDetail as paperdetails>
+			                     	 <#assign index=index+1/>
+			                     	 	<tr>
+			                     	 		<td id="millid_${paperdetails_index}" mill="${milldetails.millid}">${index!}</td>
+			                     	 		<td id="millname_${paperdetails_index}">${milldetails.millname!}</td>
+			                     	 		<td id="gsm_${paperdetails_index}">${paperdetails.gsm!}</td>
+			                     	 		<td id="grade_${paperdetails_index}">${paperdetails.grade!}</td>
+			                     	 		<td id="size_${paperdetails_index}">${paperdetails.size!}</td>
+			                     	 		<td id="opening_${paperdetails_index}">${paperdetails.opening!}</td>
+			                     	 		<td id="stockout_${paperdetails_index}">${paperdetails.stockOut!}</td>
+			                     	 		<td id="closing_${paperdetails_index}">${paperdetails.closing!}</td>
+			                     	 		<td id="created_${paperdetails_index}">${paperdetails.createdon!}</td>
+			                     	 		<td><input type="button" value="Edit" class="btn-warning"/>
+			                     	 	</tr>
+			                     	 </#list>
+								</#list>
+		                     	 </tbody>
+	                     	 </table>
+                     	 </div>
+                     </div>
                 </div>
              </div>
             <!-- /.container-fluid -->

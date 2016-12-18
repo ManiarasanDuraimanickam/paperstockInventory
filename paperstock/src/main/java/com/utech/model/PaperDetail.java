@@ -15,7 +15,9 @@ public class PaperDetail implements Serializable {
 	private double stock;
 	private double stockOut;
 	private String remarks;
-	private double closing ;
+	private double closing;
+	private double opening;
+	private String createdon;
 
 	public String getGsm() {
 		return gsm;
@@ -79,5 +81,21 @@ public class PaperDetail implements Serializable {
 
 	public void setClosing(double closing) {
 		this.closing = closing;
+	}
+
+	public double getOpening() {
+		return opening;
+	}
+
+	public void setOpening(double opening) {
+		this.opening = opening;
+	}
+
+	public String getCreatedon() {
+		return createdon;
+	}
+
+	public void setCreatedon(String createdon) {
+		this.createdon = createdon;
 	}
 }

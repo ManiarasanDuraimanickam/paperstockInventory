@@ -85,11 +85,60 @@ public class ResponseMapperImpl implements ResponseMapper {
 			detail.setGsm(rs.getString("gsm"));
 			detail.setGrade(rs.getString("grade"));
 			detail.setSize(rs.getString("size"));
-			//detail.setStock(rs.getDouble("stock"));
+			// detail.setStock(rs.getDouble("stock"));
 			detail.setRemarks(rs.getString("remarks"));
 			paperDetails.add(detail);
 			stockDetail.setPaperDetail(paperDetails);
 			stockDetails.add(stockDetail);
+		}
+		return stockDetails;
+	}
+
+	@Override
+	public List<PSIStockDetail> mapLast30DaysPurchaseTrans(ResultSet rs, PSIDatavo datavo, boolean isStockOut)
+			throws SQLException {
+		List<PSIStockDetail> stockDetails = new ArrayList<>();
+		PSIStockDetail stockDetail = null;
+		while (rs.next()) {
+			int index = -1;
+			String millname = rs.getString("millname");
+			index = getSearchedIndex(stockDetails, millname);
+			if (index > -1) {
+				PaperDetail detail = new PaperDetail();
+				detail.setOpening(rs.getDouble("opening"));
+				if (isStockOut)
+					detail.setStockOut(rs.getDouble("used"));
+				else
+					detail.setStockIn(rs.getDouble("purchase"));
+				detail.setClosing(rs.getDouble("closing"));
+				detail.setCreatedon(rs.getString("created"));
+				detail.setRemarks(rs.getString("remark"));
+				detail.setGsm(rs.getString("gsm"));
+				detail.setGrade(rs.getString("grade"));
+				detail.setSize(rs.getString("size"));
+
+				stockDetails.get(index).getPaperDetail().add(detail);
+			} else {
+				stockDetail = new PSIStockDetail();
+				stockDetail.setMillname(millname);
+				stockDetail.setMillid(rs.getInt("millid"));
+				List<PaperDetail> paperDetails = new ArrayList<>();
+				PaperDetail detail = new PaperDetail();
+				detail.setOpening(rs.getDouble("opening"));
+				if (isStockOut)
+					detail.setStockOut(rs.getDouble("used"));
+				else
+					detail.setStockIn(rs.getDouble("purchase"));
+				detail.setClosing(rs.getDouble("closing"));
+				detail.setCreatedon(rs.getString("created"));
+				detail.setRemarks(rs.getString("remark"));
+				detail.setGsm(rs.getString("gsm"));
+				detail.setGrade(rs.getString("grade"));
+				detail.setSize(rs.getString("size"));
+				paperDetails.add(detail);
+				stockDetail.setPaperDetail(paperDetails);
+				stockDetails.add(stockDetail);
+			}
 		}
 		return stockDetails;
 	}

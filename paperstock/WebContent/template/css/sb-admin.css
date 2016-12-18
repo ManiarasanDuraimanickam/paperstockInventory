@@ -253,20 +253,53 @@ ul.alert-dropdown {
 	width: 49%;
 }
 
-.borderless>tbody>tr>td, .borderless>tbody>tr>th, .borderless>tfoot>tr>td {
+.borderless>tbody>tr>td, .borderless>tbody>tr>th, .borderless>tfoot>tr>td
+	{
 	border: none;
 }
-.tblcontentalignrigth>tbody>tr>td{
-	text-align:right;
-	width:60%;
+
+.tblcontentalignrigth>tbody>tr>td {
+	text-align: right;
+	width: 60%;
 }
-.tblcontentalignrigth>tbody>tr>td>input,.tblcontentalignrigth>tbody>tr>td>textarea,.tblcontentalignrigth>tbody>tr>td>select{
-	width:80%;
+
+.tblcontentalignrigth>tbody>tr>td>input, .tblcontentalignrigth>tbody>tr>td>textarea,
+	.tblcontentalignrigth>tbody>tr>td>select {
+	width: 80%;
 	cursor: pointer;
 }
-.tblcontentalignrigth>tbody>tr>td>input.cursorNotAllowed{
+
+.tblcontentalignrigth>tbody>tr>td>input.cursorNotAllowed {
 	cursor: not-allowed;
 }
-.millTReditSelected{
+
+.millTReditSelected {
 	background: #f9c4c4;
+}
+
+.table-fixed-height412px {
+	overflow-y: auto;
+	max-height: 412px;
+}
+
+.theadBgColor>thead {
+	background: #C0CBE7;
+}
+
+.subsitituteHeader {
+	position: absolute;
+	height: 40px;
+	border-collapse: collapse;
+	width: 94.5%;
+}
+
+.subsitituteHeader>thead>tr>th {
+	padding: 8px;
+	line-height: 1.42857143;
+	vertical-align: top;
+	border: 1px solid #ddd;
+	box-sizing: border-box;
+	display: table-cell;
+	vertical-align: inherit;
+	text-align: inherit;
 }

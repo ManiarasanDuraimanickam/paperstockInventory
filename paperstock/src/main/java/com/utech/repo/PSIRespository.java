@@ -28,4 +28,6 @@ public interface PSIRespository extends Serializable{
 
 	public boolean getStockout(PSIDatavo datavo, PSIStockDetail detail) throws SQLException;
 
+	public List<PSIStockDetail> getLast30DaysPurchaseTrans(PSIDatavo datavo1)throws SQLException;
+
 }

@@ -125,20 +125,36 @@
 	                     
                      </div>
                      <div class="col-lg-8 col-md-8 col-xs-12">
-		                <div class="table-responsive">
-		                	 <table class="table table-bordered table-hover">
+                     <table id="subsituteHeader" class="hide table-bordered theadBgColor subsitituteHeader">
+                     <thead>
+		                	 <tr>
+		                		<th id="millid">ID</th> 
+		                	 	<th id="name">Name</th> 
+	                            <th id="gsm">GSM</th>
+	                            <th id="grade">Grade</th>
+		                        <th id="size">SIZE</th>
+	                          <!--   <th>Phone</th>
+	                           <th id="email">Email</th>-->
+		                        <th id="address">address</th>
+		                      <!--  <th>Remarks</th>-->
+		                        <th id="edit">Edit</th>
+		                        </tr>
+		                	 </thead>
+                     </table>
+		                <div id="milldetailDiv" class="table-responsive table-fixed-height412px">
+		                	 <table id="milldetailTBL" class="table table-bordered table-hover theadBgColor">
 		                	 <thead>
 		                	 <tr>
-		                		<th>ID</th> 
-		                	 	<th>Name</th> 
-	                            <th>GSM</th>
-	                            <th>Grade</th>
-		                        <th>SIZE</th>
+		                		<th id="millid">ID</th> 
+		                	 	<th id="name">Name</th> 
+	                            <th id="gsm">GSM</th>
+	                            <th id="grade">Grade</th>
+		                        <th id="size">SIZE</th>
 	                          <!--   <th>Phone</th>
-	                           <th>Email</th>-->
-		                        <th>address</th>
+	                           <th id="email">Email</th>-->
+		                        <th id="address">address</th>
 		                      <!--  <th>Remarks</th>-->
-		                        <th>Edit</th>
+		                        <th id="edit">Edit</th>
 		                        </tr>
 		                	 </thead>
 	                            <tbody>
@@ -193,7 +209,8 @@
 $(document).ready(function(){ 	
 	formValidation();
 	millavailabilityCheck();
-	milldetailsEditSelect()
+	milldetailsEditSelect();
+	detectmilldetailDivScroll();
 	<#if (savestatus?? && savestatus?length>0 )>
 		<#if savestatus=="Your record has been saved successfully..!">
 			showSuccessMsg("${savestatus}");
@@ -317,6 +334,27 @@ function milldetailsEditSelect(){
 		$("[name=address]").val("");
 		$("[name=remarks]").val("");
 	}
+}
+function detectmilldetailDivScroll(){
+	var millDetailTBL=$("div#milldetailDiv").find("table#milldetailTBL");
+	var subsituteHeader=$("table#subsituteHeader");
+	subsituteHeader.find("th#millid").width(millDetailTBL.find("th#millid").width());
+	subsituteHeader.find("th#name").width(millDetailTBL.find("th#name").width());
+	subsituteHeader.find("th#gsm").width(millDetailTBL.find("th#gsm").width());
+	subsituteHeader.find("th#grade").width(millDetailTBL.find("th#grade").width());
+	subsituteHeader.find("th#size").width(millDetailTBL.find("th#size").width());
+	subsituteHeader.find("th#address").width(millDetailTBL.find("th#address").width());
+	subsituteHeader.find("th#edit").width(millDetailTBL.find("th#edit").width());
+	$("div#milldetailDiv").scroll(function(event){
+		//alert("scrollTop-"++" innerHeigth-"+$(this).innerHeight());
+		var scrollHeigth=$(this).scrollTop();
+		if(scrollHeigth>=10){
+		subsituteHeader.removeClass("hide");
+		}
+		else{
+		subsituteHeader.addClass("hide");
+		}
+	});
 }
 
 </script>

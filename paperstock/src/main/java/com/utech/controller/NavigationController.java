@@ -81,12 +81,19 @@ public class NavigationController extends HttpServlet {
 		case "dashboard":
 			dispatcher = ControllerUtil.redirectToSelectedPage(VIWEPAGE.DASHBOARD.getPage(), request, "navpage",
 					"dashboard");
+			PSIDatavo dsdatavo = (PSIDatavo) request.getSession().getAttribute(Constants.PSIDATAVO);
+			List<PSIStockDetail> stockDetail = PSI_SERVICE.getAllStockDetails(dsdatavo);
+			dsdatavo.getStockDetails().clear();
+			dsdatavo.getStockDetails().addAll(stockDetail);
+			request.getSession().setAttribute(Constants.PSIDATAVO, dsdatavo);
 			break;
 		case "purchase":
 			dispatcher = ControllerUtil.redirectToSelectedPage(VIWEPAGE.PURCHASE.getPage(), request, "navpage",
 					"purchase");
 			PSIDatavo datavo1 = (PSIDatavo) request.getSession().getAttribute(Constants.PSIDATAVO);
 			request.setAttribute("milldetails", PSI_SERVICE.getMillDetails(datavo1));
+			List<PSIStockDetail> last30DaysTrans = PSI_SERVICE.getLast30DaysPurchaseTrans(datavo1);
+			request.setAttribute("last30DaysTrans", last30DaysTrans);
 			break;
 		case "stockout":
 			dispatcher = ControllerUtil.redirectToSelectedPage(VIWEPAGE.STOCKOUT.getPage(), request, "navpage",
@@ -113,7 +120,9 @@ public class NavigationController extends HttpServlet {
 	private void addAllStockDetails(HttpServletRequest request) throws SQLException {
 		PSIDatavo datavo = (PSIDatavo) request.getSession().getAttribute(Constants.PSIDATAVO);
 		PSIService psiServiceStockOut = new PSIStockoutService();
-		List<PSIStockDetail> stockDetail=psiServiceStockOut.getAllStockDetails(datavo);
+		List<PSIStockDetail> stockDetail = psiServiceStockOut.getAllStockDetails(datavo);
+		List<PSIStockDetail> last30DaysTrans = psiServiceStockOut.getLast30DaysPurchaseTrans(datavo);
+		request.setAttribute("last30DaysTrans", last30DaysTrans);
 		request.setAttribute("stockoutMill", stockDetail);
 	}
 }

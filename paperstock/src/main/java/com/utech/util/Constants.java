@@ -24,6 +24,7 @@ public final class Constants {
 	public static final String STR_FINACIAL_YEAR = "finacialYear";
 	public static final String LOGIN_ERROR_KEY = "validationfailed";
 	public static final String SESSION_EXPIRED_TXT = "Your session has expired..";
+	public static final int BACK_DAYS_INT = 30;
 
 	public final static Logger logger = Logger.getLogger(Constants.class);
 

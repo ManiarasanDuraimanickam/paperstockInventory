@@ -14,6 +14,8 @@ import com.utech.mapper.ResponseMapperImpl;
 import com.utech.model.PSIDatavo;
 import com.utech.model.PSIStockDetail;
 import com.utech.model.USERINFO;
+import com.utech.util.Constants;
+import com.utech.util.ControllerUtil;
 
 public class StockoutRepo implements PSIRespository {
 
@@ -32,7 +34,12 @@ public class StockoutRepo implements PSIRespository {
 	private static final String[] query = {
 			"update stockdetails set stock=? ,lastupdated=? where mill_id=? and financial_year=?;", /* 0 */
 			"insert into activity(mill_id,opening_stock,used,closing_stock,financial_year,remarks)values(?,?,?,?,?,?);", /* 1 */
-			"select mill.sno as mill_id ,mill.millname as millname,mill.gsm as gsm,mill.grade as grade,mill.size as size,stock.stock as stock ,mill.address as address,mill.phone as phone,mill.mailid as mailid,mill.createdon as createdon from stockdetails stock inner join milldetails mill on stock.mill_id=mill.sno and stock.stock>0;", /* 1 */
+			"select mill.sno as mill_id ,mill.millname as millname,mill.gsm as gsm,mill.grade as grade,mill.size as size,stock.stock as stock ,"
+					+ "mill.address as address,mill.phone as phone,mill.mailid as mailid,mill.createdon as createdon from stockdetails stock inner join "
+					+ "milldetails mill on stock.mill_id=mill.sno and stock.stock>0;", /* 2 */
+			"SELECT act.opening_stock as opening,act.used as used,act.closing_stock as closing,act.createdon as created ,act.remarks as remark,"
+					+ " mill.sno as millid,mill.millname as millname,mill.gsm as gsm,mill.grade as grade,mill.size as size FROM activity act inner join milldetails"
+					+ " mill on act.mill_id=mill.sno where act.financial_year=?and act.createdon between ? and ? and used is not null;" /* 3 */
 	};
 
 	@Override
@@ -136,5 +143,22 @@ public class StockoutRepo implements PSIRespository {
 		pst.setString(5, datavo.getUserinfo().getFinacialYear());
 		pst.setString(6, detail.getPaperDetail().get(0).getRemarks());
 		return pst.executeUpdate() > 0 ? true : false;
+	}
+
+	@Override
+	public List<PSIStockDetail> getLast30DaysPurchaseTrans(PSIDatavo datavo) throws SQLException {
+		List<PSIStockDetail> psiStockDetails = null;
+		try {
+			Connection connection = this.connection.getConnection();
+			PreparedStatement pst = connection.prepareStatement(query[3]);
+			pst.setString(1, datavo.getUserinfo().getFinacialYear());
+			pst.setTimestamp(2, new Timestamp(ControllerUtil.getBackDate(Constants.BACK_DAYS_INT).getTime()));
+			pst.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+			ResultSet resultSet = pst.executeQuery();
+			psiStockDetails = this.responseMapper.mapLast30DaysPurchaseTrans(resultSet, datavo,true);
+		} finally {
+			this.connection.getConnection().close();
+		}
+		return psiStockDetails;
 	}
 }

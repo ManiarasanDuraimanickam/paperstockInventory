@@ -1,5 +1,7 @@
 package com.utech.util;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Properties;
 
 import javax.servlet.RequestDispatcher;
@@ -47,7 +49,14 @@ public class ControllerUtil {
 	public static boolean checkUserSession(HttpServletRequest request) {
 		PSIDatavo datavo = (PSIDatavo) request.getSession().getAttribute(Constants.PSIDATAVO);
 		String navpage = (String) request.getSession().getAttribute("navpage");
-		return navpage!=null && !navpage.isEmpty()&& datavo != null && datavo.getUserinfo() != null && datavo.getUserinfo().getUsername() != null ? true
-				: false;
+		return navpage != null && !navpage.isEmpty() && datavo != null && datavo.getUserinfo() != null
+				&& datavo.getUserinfo().getUsername() != null ? true : false;
+	}
+
+	public static final Date getBackDate(int daysBefore) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(new Date(System.currentTimeMillis()));
+		calendar.add(Calendar.DATE, -daysBefore);
+		return calendar.getTime();
 	}
 }

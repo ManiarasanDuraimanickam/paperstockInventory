@@ -14,6 +14,8 @@ import com.utech.mapper.ResponseMapperImpl;
 import com.utech.model.PSIDatavo;
 import com.utech.model.PSIStockDetail;
 import com.utech.model.USERINFO;
+import com.utech.util.Constants;
+import com.utech.util.ControllerUtil;
 
 public class PSIRepositoryImpl implements PSIRespository {
 	/**
@@ -43,8 +45,11 @@ public class PSIRepositoryImpl implements PSIRespository {
 	};
 	private static final String[] stockInQuery = {
 			"insert into activity(mill_id,opening_stock,purchase,closing_stock,financial_year,remarks)values(?,?,?,?,?,?);", /* 0 */
-			"select mill_id from stockdetails where mill_id=? and financial_year=?",
-			"insert into stockdetails(stock,financial_year,mill_id,lastupdated)values(?,?,?,?)" };
+			"select mill_id from stockdetails where mill_id=? and financial_year=?", /* 1 */
+			"insert into stockdetails(stock,financial_year,mill_id,lastupdated)values(?,?,?,?)", /* 2 */
+			"SELECT act.opening_stock as opening,act.purchase as purchase,act.closing_stock as closing,act.createdon as created ,act.remarks as remark,"
+					+ " mill.sno as millid,mill.millname as millname,mill.gsm as gsm,mill.grade as grade,mill.size as size FROM activity act inner join milldetails"
+					+ " mill on act.mill_id=mill.sno where act.financial_year=?and act.createdon between ? and ? and purchase is not null;" /* 3 */ };
 
 	@Override
 	public boolean isValidUser(USERINFO userinfo) throws SQLException {
@@ -242,6 +247,23 @@ public class PSIRepositoryImpl implements PSIRespository {
 	public boolean getStockout(PSIDatavo datavo, PSIStockDetail detail) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public List<PSIStockDetail> getLast30DaysPurchaseTrans(PSIDatavo datavo) throws SQLException {
+		List<PSIStockDetail> psiStockDetails = null;
+		try {
+			Connection connection = this.connection.getConnection();
+			PreparedStatement pst = connection.prepareStatement(stockInQuery[3]);
+			pst.setString(1, datavo.getUserinfo().getFinacialYear());
+			pst.setTimestamp(2, new Timestamp(ControllerUtil.getBackDate(Constants.BACK_DAYS_INT).getTime()));
+			pst.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+			ResultSet resultSet = pst.executeQuery();
+			psiStockDetails = this.responseMapper.mapLast30DaysPurchaseTrans(resultSet, datavo,false);
+		} finally {
+			this.connection.getConnection().close();
+		}
+		return psiStockDetails;
 	}
 
 }
