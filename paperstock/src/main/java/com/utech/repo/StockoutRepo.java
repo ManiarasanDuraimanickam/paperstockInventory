@@ -24,14 +24,16 @@ public class StockoutRepo implements PSIRespository {
 	private DBConnection connection = new MySQLConnection();
 	private ResponseMapper responseMapper = new ResponseMapperImpl();
 	private static final String[] stockFilterQuery = {
-			"select mill.sno as mill_id ,mill.millname as millname,mill.gsm as gsm,mill.grade as grade,mill.size as size,stock.stock,mill.address,mill.phone,mill.mailid,mill.createdon from stockdetails stock inner join milldetails mill on stock.mill_id=mill.sno where mill.millname=? and stock.financial_year=? ;", /* 0 */
-			"select mill.sno as mill_id ,mill.millname as millname,mill.gsm as gsm,mill.grade as grade,mill.size as size,stock.stock,mill.address,mill.phone,mill.mailid,mill.createdon from stockdetails stock inner join milldetails mill on stock.mill_id=mill.sno where mill.millname=? and mill.gsm=? and stock.financial_year=?;", /* 1 */
-			"select mill.sno as mill_id ,mill.millname as millname,mill.gsm as gsm,mill.grade as grade,mill.size as size,stock.stock,mill.address,mill.phone,mill.mailid,mill.createdon from stockdetails stock inner join milldetails mill on stock.mill_id=mill.sno where mill.millname=? and mill.gsm=? and mill.grade=? and stock.financial_year=? ;", /* 2 */
-			"select mill.sno as mill_id ,mill.millname as millname,mill.gsm as gsm,mill.grade as grade,mill.size as size,stock.stock,mill.address,mill.phone,mill.mailid,mill.createdon from stockdetails stock inner join milldetails mill on stock.mill_id=mill.sno where mill.millname=? and mill.gsm=? and mill.grade=? and mill.size=? and stock.financial_year=?;"/* 3 */
+			"select mill.sno as mill_id ,mill.millname as millname,mill.gsm as gsm,mill.grade as grade,mill.size as size,stock.stock,mill.address,mill.phone,mill.mailid,mill.createdon from stockdetails stock inner join milldetails mill on stock.mill_id=mill.sno where mill.millname=? and stock.financial_year=? and stock.stock>0;", /* 0 */
+			"select mill.sno as mill_id ,mill.millname as millname,mill.gsm as gsm,mill.grade as grade,mill.size as size,stock.stock,mill.address,mill.phone,mill.mailid,mill.createdon from stockdetails stock inner join milldetails mill on stock.mill_id=mill.sno where mill.millname=? and mill.gsm=? and stock.financial_year=? and stock.stock>0;", /* 1 */
+			"select mill.sno as mill_id ,mill.millname as millname,mill.gsm as gsm,mill.grade as grade,mill.size as size,stock.stock,mill.address,mill.phone,mill.mailid,mill.createdon from stockdetails stock inner join milldetails mill on stock.mill_id=mill.sno where mill.millname=? and mill.gsm=? and mill.grade=? and stock.financial_year=? and stock.stock>0 ;", /* 2 */
+			"select mill.sno as mill_id ,mill.millname as millname,mill.gsm as gsm,mill.grade as grade,mill.size as size,stock.stock as stock ,mill.address as address,mill.phone as phone,mill.mailid as mailid,mill.createdon as createdon from stockdetails stock inner join milldetails mill on stock.mill_id=mill.sno where mill.millname=? and mill.gsm=? and mill.grade=? and mill.size=? and stock.financial_year=? and stock.stock>0;"/* 3 */
 	};
 	private static final String[] query = {
 			"update stockdetails set stock=? ,lastupdated=? where mill_id=? and financial_year=?;", /* 0 */
-			"insert into activity(mill_id,opening_stock,used,closing_stock,financial_year,remarks)values(?,?,?,?,?,?);"/* 1 */ };
+			"insert into activity(mill_id,opening_stock,used,closing_stock,financial_year,remarks)values(?,?,?,?,?,?);", /* 1 */
+			"select mill.sno as mill_id ,mill.millname as millname,mill.gsm as gsm,mill.grade as grade,mill.size as size,stock.stock as stock ,mill.address as address,mill.phone as phone,mill.mailid as mailid,mill.createdon as createdon from stockdetails stock inner join milldetails mill on stock.mill_id=mill.sno and stock.stock>0;", /* 1 */
+	};
 
 	@Override
 	public boolean isValidUser(USERINFO userinfo) throws SQLException {
@@ -40,7 +42,16 @@ public class StockoutRepo implements PSIRespository {
 
 	@Override
 	public List<PSIStockDetail> getAllStockDetails(PSIDatavo datavo) throws SQLException {
-		return null;
+		List<PSIStockDetail> psiStockDetails = null;
+		try {
+			Connection connection = this.connection.getConnection();
+			PreparedStatement pst = connection.prepareStatement(query[2]);
+			ResultSet resultSet = pst.executeQuery();
+			psiStockDetails = this.responseMapper.getAllStockDetails(resultSet, datavo);
+		} finally {
+			this.connection.getConnection().close();
+		}
+		return psiStockDetails;
 	}
 
 	@Override

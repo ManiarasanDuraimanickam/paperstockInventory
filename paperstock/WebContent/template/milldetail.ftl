@@ -197,7 +197,7 @@ $(document).ready(function(){
 	<#if (savestatus?? && savestatus?length>0 )>
 		<#if savestatus=="Your record has been saved successfully..!">
 			showSuccessMsg("${savestatus}");
-		<#elseif savestatus=="We are facing some technical issue so cannot save your record.">
+		<#else>
 			showErrorMsg("${savestatus}");
 		</#if>
 	</#if>
@@ -218,7 +218,7 @@ function millavailabilityCheck(){
 	$("#milldetailsAvailable").click(function(){
 		enableDisableInput(true);
 		var data=mandatoryFieldCheck();
-		if(data.length===0){
+		if(!data || data.length===0){
 			scrollToErrorMsg($("input[name=gsm]").scrollTop());
 			alert("Enter the values in all the given Mandatory Fields(Millname, GSM, Grade & Size)");
 			enableDisableInput(false);

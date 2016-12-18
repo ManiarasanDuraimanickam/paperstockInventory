@@ -63,9 +63,16 @@ public class MillDetailsController extends HttpServlet {
 				boolean status = PSI_SERVICE.updateMillDetail(datavo, detail);
 				msg = status ? RECORD_STATUS.SUCCESS.getMsg() : RECORD_STATUS.FALIUR.getMsg();
 			} else {
-				boolean status = PSI_SERVICE.doSaveMillDetails(datavo, detail);
-				msg = status ? RECORD_STATUS.SUCCESS.getMsg() : RECORD_STATUS.FALIUR.getMsg();
-			} // VIWEPAGE.MILLDETAIL.getPage()
+				boolean ismillAvailable = PSI_SERVICE.isMillAvailability(datavo, detail.getMillname(),
+						detail.getPaperDetail().get(0).getGsm(), detail.getPaperDetail().get(0).getGrade(),
+						detail.getPaperDetail().get(0).getSize());
+				if (ismillAvailable) {
+					msg="Mill details already available, so can't store the dublicate value";
+				} else {
+					boolean status = PSI_SERVICE.doSaveMillDetails(datavo, detail);
+					msg = status ? RECORD_STATUS.SUCCESS.getMsg() : RECORD_STATUS.FALIUR.getMsg();
+				}
+			}// VIWEPAGE.MILLDETAIL.getPage()
 			dispatcher = ControllerUtil.redirectToSelectedPage("/navigation?menu=milldetail", request, "savestatus",
 					msg);
 		} catch (SQLException e) {

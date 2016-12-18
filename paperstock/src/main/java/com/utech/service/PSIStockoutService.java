@@ -28,7 +28,7 @@ public class PSIStockoutService implements PSIService {
 
 	@Override
 	public List<PSIStockDetail> getAllStockDetails(PSIDatavo datavo) throws SQLException {
-		return null;
+		return this.respository.getAllStockDetails(datavo);
 	}
 
 	@Override

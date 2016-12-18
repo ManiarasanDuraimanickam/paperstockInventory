@@ -73,7 +73,7 @@ public class StockFilterController extends HttpServlet {
 		try {
 			String menu = request.getParameter("pageid");
 			if (menu != null && menu.equalsIgnoreCase("stockout")) {
-				PSI_SERVICE = new PSIStockoutService();
+				PSIService psiStockOut = new PSIStockoutService();
 			}
 			List<PSIStockDetail> stockDetail = PSI_SERVICE.getFilteredStockByUserQuery(datavo, queryIndex,
 					query.toArray());

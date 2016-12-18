@@ -2,6 +2,7 @@ package com.utech.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,8 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.utech.model.PSIDatavo;
+import com.utech.model.PSIStockDetail;
 import com.utech.service.PSIService;
 import com.utech.service.PSIServiceImpl;
+import com.utech.service.PSIStockoutService;
 import com.utech.util.Constants;
 import com.utech.util.ControllerUtil;
 import com.utech.util.ControllerUtil.VIWEPAGE;
@@ -23,7 +26,7 @@ import com.utech.util.ControllerUtil.VIWEPAGE;
 @WebServlet("/navigation")
 public class NavigationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final PSIService PSI_SERVICE = new PSIServiceImpl();
+	private static PSIService PSI_SERVICE = new PSIServiceImpl();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -109,8 +112,8 @@ public class NavigationController extends HttpServlet {
 
 	private void addAllStockDetails(HttpServletRequest request) throws SQLException {
 		PSIDatavo datavo = (PSIDatavo) request.getSession().getAttribute(Constants.PSIDATAVO);
-		datavo.getStockDetails().clear();
-		datavo.getStockDetails().addAll(PSI_SERVICE.getAllStockDetails(datavo));
-		request.getSession().setAttribute(Constants.PSIDATAVO, datavo);
+		PSIService psiServiceStockOut = new PSIStockoutService();
+		List<PSIStockDetail> stockDetail=psiServiceStockOut.getAllStockDetails(datavo);
+		request.setAttribute("stockoutMill", stockDetail);
 	}
 }

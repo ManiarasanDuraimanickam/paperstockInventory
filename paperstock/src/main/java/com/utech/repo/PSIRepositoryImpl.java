@@ -76,7 +76,6 @@ public class PSIRepositoryImpl implements PSIRespository {
 			this.connection.getConnection().close();
 		}
 		return psiStockDetails;
-
 	}
 
 	@Override

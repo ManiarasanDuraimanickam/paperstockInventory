@@ -17,8 +17,8 @@ import com.utech.model.PSIStockDetail;
 import com.utech.service.PSIService;
 import com.utech.service.PSIStockoutService;
 import com.utech.util.Constants;
-import com.utech.util.ControllerUtil;
 import com.utech.util.Constants.RECORD_STATUS;
+import com.utech.util.ControllerUtil;
 
 /**
  * Servlet implementation class StockoutController

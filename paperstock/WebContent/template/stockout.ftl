@@ -71,7 +71,7 @@
 	                                    <td>
 		                                    <select name="millname" class="stockFilterSelect">
 		                                    <option value="">Select Mill</option>
-		                                     <#list PSIDatavo.stockDetails as stockdetail>
+		                                     <#list stockoutMill as stockdetail>
 		                                      <option value="${stockdetail.millname}">${stockdetail.millname}</option>
 											</#list>
 		                                    </seclect>
@@ -397,12 +397,14 @@ function submitFormValidation(){
 		var gsmArray=new Array();
 		var gsmSelect=$("select[name=gsm]");
 		var options="<option value=\"\">Select GSM</option>";
-		paperDetails.forEach(function(data){
-		if(gsmArray.length===0 || gsmArray.indexOf(data.gsm)===-1){
-			options=options+"<option value=\""+data.gsm+"\">"+data.gsm+"</option>";
-			gsmArray.push(data.gsm);
+		if(paperDetails!==undefined){
+			paperDetails.forEach(function(data){
+				if(gsmArray.length===0 || gsmArray.indexOf(data.gsm)===-1){
+					options=options+"<option value=\""+data.gsm+"\">"+data.gsm+"</option>";
+					gsmArray.push(data.gsm);
+				}
+			});
 		}
-		});
 		gsmSelect.html("");
 		gsmSelect.html(options);
 	}
@@ -410,12 +412,14 @@ function submitFormValidation(){
 		var gradeArray=new Array();
 		var gradeSelect=$("select[name=grade]");
 		var options="<option value=\"\">Select Grade</option>";
+		if(paperDetails!==undefined){
 		paperDetails.forEach(function(data){
-		if(gradeArray.length===0 || gradeArray.indexOf(data.grade)===-1){
-			options=options+"<option value=\""+data.grade+"\">"+data.grade+"</option>"
-			gradeArray.push(data.grade);
+			if(gradeArray.length===0 || gradeArray.indexOf(data.grade)===-1){
+				options=options+"<option value=\""+data.grade+"\">"+data.grade+"</option>"
+				gradeArray.push(data.grade);
+			}
+			});
 		}
-		});
 		gradeSelect.html("");
 		gradeSelect.html(options);
 	}
@@ -423,12 +427,14 @@ function submitFormValidation(){
 		var sizeArray=new Array();
 		var sizeSelect=$("select[name=size]");
 		var options="<option value=\"\">Select Size</option>";
-		paperDetails.forEach(function(data){
-		if(sizeArray.length===0 || sizeArray.indexOf(data.size)===-1){
-			options=options+"<option value=\""+data.size+"\">"+data.size+"</option>"
-			sizeArray.push(data.size);
+		if(paperDetails!==undefined){
+			paperDetails.forEach(function(data){
+			if(sizeArray.length===0 || sizeArray.indexOf(data.size)===-1){
+				options=options+"<option value=\""+data.size+"\">"+data.size+"</option>"
+				sizeArray.push(data.size);
+			}
+			});
 		}
-		});
 		sizeSelect.html("");
 		sizeSelect.html(options);
 	}
