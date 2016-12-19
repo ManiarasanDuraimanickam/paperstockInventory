@@ -161,4 +161,10 @@ public class StockoutRepo implements PSIRespository {
 		}
 		return psiStockDetails;
 	}
+
+	@Override
+	public List<PSIStockDetail> getLast30DaysPurchase_UsedTrans(PSIDatavo datavo) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

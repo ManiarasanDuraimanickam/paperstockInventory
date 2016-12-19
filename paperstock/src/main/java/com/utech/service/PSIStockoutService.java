@@ -71,5 +71,10 @@ public class PSIStockoutService implements PSIService {
 		// TODO Auto-generated method stub
 		return this.respository.getLast30DaysPurchaseTrans(datavo);
 	}
+	@Override
+	public List<PSIStockDetail> getLast30DaysPurchase_UsedTrans(PSIDatavo datavo) throws SQLException {
+		// TODO Auto-generated method stub
+		return this.respository.getLast30DaysPurchase_UsedTrans(datavo);
+	}
 
 }

@@ -142,4 +142,48 @@ public class ResponseMapperImpl implements ResponseMapper {
 		}
 		return stockDetails;
 	}
+
+	@Override
+	public List<PSIStockDetail> getLast30DaysPurchase_UsedTrans(ResultSet rs, PSIDatavo datavo) throws SQLException {
+		List<PSIStockDetail> stockDetails = new ArrayList<>();
+		PSIStockDetail stockDetail = null;
+		while (rs.next()) {
+			int index = -1;
+			String millname = rs.getString("millname");
+			index = getSearchedIndex(stockDetails, millname);
+			if (index > -1) {
+				PaperDetail detail = new PaperDetail();
+				detail.setOpening(rs.getDouble("opening"));
+				detail.setStockOut(rs.getDouble("used"));
+				detail.setStockIn(rs.getDouble("purchase"));
+				detail.setClosing(rs.getDouble("closing"));
+				detail.setCreatedon(rs.getString("created"));
+				detail.setRemarks(rs.getString("remark"));
+				detail.setGsm(rs.getString("gsm"));
+				detail.setGrade(rs.getString("grade"));
+				detail.setSize(rs.getString("size"));
+
+				stockDetails.get(index).getPaperDetail().add(detail);
+			} else {
+				stockDetail = new PSIStockDetail();
+				stockDetail.setMillname(millname);
+				stockDetail.setMillid(rs.getInt("millid"));
+				List<PaperDetail> paperDetails = new ArrayList<>();
+				PaperDetail detail = new PaperDetail();
+				detail.setOpening(rs.getDouble("opening"));
+				detail.setStockOut(rs.getDouble("used"));
+				detail.setStockIn(rs.getDouble("purchase"));
+				detail.setClosing(rs.getDouble("closing"));
+				detail.setCreatedon(rs.getString("created"));
+				detail.setRemarks(rs.getString("remark"));
+				detail.setGsm(rs.getString("gsm"));
+				detail.setGrade(rs.getString("grade"));
+				detail.setSize(rs.getString("size"));
+				paperDetails.add(detail);
+				stockDetail.setPaperDetail(paperDetails);
+				stockDetails.add(stockDetail);
+			}
+		}
+		return stockDetails;
+	}
 }

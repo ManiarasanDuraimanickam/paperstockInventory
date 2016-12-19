@@ -34,15 +34,16 @@ public class PSIServiceImpl implements PSIService {
 	}
 
 	@Override
-	public List<PSIStockDetail> getFilteredStockByUserQuery(PSIDatavo datavo,int queryIndex, Object... query) throws SQLException {
+	public List<PSIStockDetail> getFilteredStockByUserQuery(PSIDatavo datavo, int queryIndex, Object... query)
+			throws SQLException {
 		// TODO Auto-generated method stub
-		return this.respository.getFilteredStockByUserQuery(datavo,queryIndex, query);
+		return this.respository.getFilteredStockByUserQuery(datavo, queryIndex, query);
 	}
 
 	@Override
-	public boolean isMillAvailability(PSIDatavo datavo,String... milldetails)throws SQLException {
+	public boolean isMillAvailability(PSIDatavo datavo, String... milldetails) throws SQLException {
 		// TODO Auto-generated method stub
-		return this.respository.isMillAvailability(datavo,milldetails);
+		return this.respository.isMillAvailability(datavo, milldetails);
 	}
 
 	@Override
@@ -52,9 +53,9 @@ public class PSIServiceImpl implements PSIService {
 	}
 
 	@Override
-	public boolean updateMillDetail(PSIDatavo datavo,PSIStockDetail milldetails) throws SQLException {
+	public boolean updateMillDetail(PSIDatavo datavo, PSIStockDetail milldetails) throws SQLException {
 		// TODO Auto-generated method stub
-		return this.respository.updateMillDetail(datavo,milldetails);
+		return this.respository.updateMillDetail(datavo, milldetails);
 	}
 
 	@Override
@@ -65,7 +66,7 @@ public class PSIServiceImpl implements PSIService {
 	@Override
 	public boolean getStockIn(PSIDatavo datavo, PSIStockDetail detail) throws SQLException {
 		// TODO Auto-generated method stub
-		return this.respository.getStockIn(datavo,detail);
+		return this.respository.getStockIn(datavo, detail);
 	}
 
 	@Override
@@ -77,7 +78,13 @@ public class PSIServiceImpl implements PSIService {
 	@Override
 	public List<PSIStockDetail> getLast30DaysPurchaseTrans(PSIDatavo datavo) throws SQLException {
 		// TODO Auto-generated method stub
-		return this.respository.getLast30DaysPurchaseTrans( datavo);
+		return this.respository.getLast30DaysPurchaseTrans(datavo);
+	}
+
+	@Override
+	public List<PSIStockDetail> getLast30DaysPurchase_UsedTrans(PSIDatavo datavo) throws SQLException {
+		// TODO Auto-generated method stub
+		return this.respository.getLast30DaysPurchase_UsedTrans(datavo);
 	}
 
 }

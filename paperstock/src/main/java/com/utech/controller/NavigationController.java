@@ -77,22 +77,21 @@ public class NavigationController extends HttpServlet {
 					Constants.SESSION_EXPIRED_TXT);
 			return dispatcher;
 		}
+		PSIDatavo datavo = (PSIDatavo) request.getSession().getAttribute(Constants.PSIDATAVO);
 		switch (page) {
 		case "dashboard":
 			dispatcher = ControllerUtil.redirectToSelectedPage(VIWEPAGE.DASHBOARD.getPage(), request, "navpage",
 					"dashboard");
-			PSIDatavo dsdatavo = (PSIDatavo) request.getSession().getAttribute(Constants.PSIDATAVO);
-			List<PSIStockDetail> stockDetail = PSI_SERVICE.getAllStockDetails(dsdatavo);
-			dsdatavo.getStockDetails().clear();
-			dsdatavo.getStockDetails().addAll(stockDetail);
-			request.getSession().setAttribute(Constants.PSIDATAVO, dsdatavo);
+			List<PSIStockDetail> stockDetail = PSI_SERVICE.getAllStockDetails(datavo);
+			datavo.getStockDetails().clear();
+			datavo.getStockDetails().addAll(stockDetail);
+			request.getSession().setAttribute(Constants.PSIDATAVO, datavo);
 			break;
 		case "purchase":
 			dispatcher = ControllerUtil.redirectToSelectedPage(VIWEPAGE.PURCHASE.getPage(), request, "navpage",
 					"purchase");
-			PSIDatavo datavo1 = (PSIDatavo) request.getSession().getAttribute(Constants.PSIDATAVO);
-			request.setAttribute("milldetails", PSI_SERVICE.getMillDetails(datavo1));
-			List<PSIStockDetail> last30DaysTrans = PSI_SERVICE.getLast30DaysPurchaseTrans(datavo1);
+			request.setAttribute("milldetails", PSI_SERVICE.getMillDetails(datavo));
+			List<PSIStockDetail> last30DaysTrans = PSI_SERVICE.getLast30DaysPurchaseTrans(datavo);
 			request.setAttribute("last30DaysTrans", last30DaysTrans);
 			break;
 		case "stockout":
@@ -102,11 +101,12 @@ public class NavigationController extends HttpServlet {
 			break;
 		case "report":
 			dispatcher = ControllerUtil.redirectToSelectedPage(VIWEPAGE.REPORT.getPage(), request, "navpage", "report");
+			List<PSIStockDetail> last30DaysPurchase_Used = PSI_SERVICE.getLast30DaysPurchase_UsedTrans(datavo);
+			request.setAttribute("last30DaysTrans", last30DaysPurchase_Used);
 			break;
 		case "milldetail":
 			dispatcher = ControllerUtil.redirectToSelectedPage(VIWEPAGE.MILLDETAIL.getPage(), request, "navpage",
 					"milldetail");
-			PSIDatavo datavo = (PSIDatavo) request.getSession().getAttribute(Constants.PSIDATAVO);
 			request.setAttribute("milldetails", PSI_SERVICE.getMillDetails(datavo));
 			break;
 		default:

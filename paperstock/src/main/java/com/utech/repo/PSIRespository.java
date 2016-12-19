@@ -8,15 +8,16 @@ import com.utech.model.PSIDatavo;
 import com.utech.model.PSIStockDetail;
 import com.utech.model.USERINFO;
 
-public interface PSIRespository extends Serializable{
+public interface PSIRespository extends Serializable {
 
-	public boolean isValidUser(USERINFO userinfo)throws SQLException;
-	
+	public boolean isValidUser(USERINFO userinfo) throws SQLException;
+
 	public List<PSIStockDetail> getAllStockDetails(PSIDatavo datavo) throws SQLException;
-	
-	public List<PSIStockDetail> getFilteredStockByUserQuery(PSIDatavo datavo, int queryIndex,Object... query) throws SQLException;
 
-	public boolean isMillAvailability(PSIDatavo datavo,String... milldetails) throws SQLException;
+	public List<PSIStockDetail> getFilteredStockByUserQuery(PSIDatavo datavo, int queryIndex, Object... query)
+			throws SQLException;
+
+	public boolean isMillAvailability(PSIDatavo datavo, String... milldetails) throws SQLException;
 
 	public boolean doSaveMillDetails(PSIDatavo datavo, PSIStockDetail detail) throws SQLException;
 
@@ -28,6 +29,8 @@ public interface PSIRespository extends Serializable{
 
 	public boolean getStockout(PSIDatavo datavo, PSIStockDetail detail) throws SQLException;
 
-	public List<PSIStockDetail> getLast30DaysPurchaseTrans(PSIDatavo datavo1)throws SQLException;
+	public List<PSIStockDetail> getLast30DaysPurchaseTrans(PSIDatavo datavo1) throws SQLException;
+
+	public List<PSIStockDetail> getLast30DaysPurchase_UsedTrans(PSIDatavo datavo) throws SQLException;
 
 }

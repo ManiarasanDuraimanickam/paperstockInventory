@@ -12,20 +12,23 @@ public interface PSIService extends Serializable {
 	public boolean isValidUser(USERINFO userinfo) throws SQLException;
 
 	public List<PSIStockDetail> getAllStockDetails(PSIDatavo datavo) throws SQLException;
-	
-	public List<PSIStockDetail>  getFilteredStockByUserQuery(PSIDatavo datavo, int queryIndex,Object... query) throws SQLException;
 
-	public boolean isMillAvailability(PSIDatavo datavo,String...milldetails) throws SQLException;
+	public List<PSIStockDetail> getFilteredStockByUserQuery(PSIDatavo datavo, int queryIndex, Object... query)
+			throws SQLException;
+
+	public boolean isMillAvailability(PSIDatavo datavo, String... milldetails) throws SQLException;
 
 	public boolean doSaveMillDetails(PSIDatavo datavo, PSIStockDetail detail) throws SQLException;
-	
-	public List<PSIStockDetail> getMillDetails(PSIDatavo datavo) throws SQLException;
-	
-	public boolean updateMillDetail(PSIDatavo datavo,PSIStockDetail milldetails) throws SQLException;
 
-	public boolean getStockIn(PSIDatavo datavo, PSIStockDetail detail)throws SQLException;
+	public List<PSIStockDetail> getMillDetails(PSIDatavo datavo) throws SQLException;
+
+	public boolean updateMillDetail(PSIDatavo datavo, PSIStockDetail milldetails) throws SQLException;
+
+	public boolean getStockIn(PSIDatavo datavo, PSIStockDetail detail) throws SQLException;
 
 	public boolean getStockout(PSIDatavo datavo, PSIStockDetail detail) throws SQLException;
 
-	public List<PSIStockDetail> getLast30DaysPurchaseTrans(PSIDatavo datavo)throws SQLException;
+	public List<PSIStockDetail> getLast30DaysPurchaseTrans(PSIDatavo datavo) throws SQLException;
+
+	public List<PSIStockDetail> getLast30DaysPurchase_UsedTrans(PSIDatavo datavo) throws SQLException;
 }

@@ -18,86 +18,6 @@
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
-               <!-- <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
-                    <ul class="dropdown-menu message-dropdown">
-                        <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="message-footer">
-                            <a href="#">Read All New Messages</a>
-                        </li>
-                    </ul>
-                </li>-->
-                <!--<li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
-                    <ul class="dropdown-menu alert-dropdown">
-                        <li>
-                            <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">View All</a>
-                        </li>
-                    </ul>
-                </li>-->
                 <!-- logged in user profiles and other stuffs here-->
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> ${(PSIDatavo.userinfo.username)!"User"} <b class="caret"></b></a>
@@ -136,29 +56,17 @@
                         <h1 class="page-header">
                             <small><i class="fa fa-edit"></i> Report</small>
                         </h1>
-                       <!-- <ol class="breadcrumb">
-                            <li class="active">
-                                <i class="fa fa-edit"></i> Report
-                            </li>
-                        </ol>-->
                     </div>
                 </div>
                 <!-- /.row -->
 
-               <!-- <div class="row">
-                    <div class="col-lg-12">
-                        <div class="alert alert-info alert-dismissable">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            <i class="fa fa-info-circle"></i>  <strong>Like Paper Stock?</strong> Try out <a href="#" class="alert-link">Paper Stock</a> for additional features!
-                        </div>
-                    </div>
-                </div>-->
-                <!-- /.row -->
-
                 <div class="row">
+                <div class="col-lg-6 col-md-6 col-xs-12">
+                <#assign index=0/>
                  <#list PSIDatavo.stockDetails as stockdetail>
 	                 <#list stockdetail.paperDetail as paperdetail>
-	                 	<div class="col-lg-3 col-md-6">
+	                 <#assign index=index+1/>
+	                 	<div class="col-lg-6 col-md-6">
                      		<div class="panel <#if (paperdetail.stock?eval gt 130)>panel-green<#elseif (paperdetail.stock?eval gt 100 )>panel-primary<#elseif (paperdetail.stock?eval gt 50 )>panel-yellow<#elseif (paperdetail.stock?eval < 50 )> panel-red</#if>">
 	                            <div class="panel-heading">
 	                                <div class="row">
@@ -190,6 +98,47 @@
 		                  </div>
 	                 </#list>
                  </#list>
+				</div>
+				<div class="col-lg-6 col-md-6 col-xs-12">
+					<div class="table-responsive">
+							<table class="table table-bordered table-hover table-striped">
+		                     	 <thead>
+		                     	 	<tr>
+		                     	 		<th>Sno</th>
+		                     	 		<th>Mill</th>
+		                     	 		<th>Gsm</th>
+		                     	 		<th>Grade</th>
+		                     	 		<th>Size</th>
+		                     	 		<th>opening</th>
+		                     	 		<th>Purchase</th>
+		                     	 		<th>StockOut</th>
+		                     	 		<th>closing</th>
+		                     	 		<th>Created</th>
+		                     	 	</tr>
+		                     	 </thead>
+		                     	 <tbody>
+		                     	 	<#assign index=0/>
+		                     	 	<#list last30DaysTrans as milldetails>
+		                     	 		<#list milldetails.paperDetail as paperdetails>
+		                     	 		<#assign index=index+1/>
+		                     	 		<tr>
+			                     	 		<td id="millid_${paperdetails_index}" mill="${milldetails.millid}">${index!}</td>
+			                     	 		<td id="millname_${paperdetails_index}">${milldetails.millname!}</td>
+			                     	 		<td id="gsm_${paperdetails_index}">${paperdetails.gsm!}</td>
+			                     	 		<td id="grade_${paperdetails_index}">${paperdetails.grade!}</td>
+			                     	 		<td id="size_${paperdetails_index}">${paperdetails.size!}</td>
+			                     	 		<td id="opening_${paperdetails_index}">${paperdetails.opening!}</td>
+			                     	 		<td id="stockin_${paperdetails_index}">${paperdetails.stockIn!0}</td>
+			                     	 		<td id="stockout_${paperdetails_index}">${paperdetails.stockOut!0}</td>
+			                     	 		<td id="closing_${paperdetails_index}">${paperdetails.closing!}</td>
+			                     	 		<td id="created_${paperdetails_index}">${paperdetails.createdon!}</td>
+			                     	 	</tr>
+		                     	 		</#list>
+		                     	 	</#list>
+		                     	 </tbody>
+						</table>
+					</div>
+				</div>
                 </div>
                    <!-- <div class="col-lg-3 col-md-6">
                         <div class="panel panel-green">

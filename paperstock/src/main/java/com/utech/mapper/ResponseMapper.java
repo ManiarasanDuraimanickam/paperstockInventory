@@ -13,6 +13,9 @@ public interface ResponseMapper {
 
 	List<PSIStockDetail> getMillDetails(ResultSet resultSet, PSIDatavo datavo) throws SQLException;
 
-	List<PSIStockDetail> mapLast30DaysPurchaseTrans(ResultSet resultSet, PSIDatavo datavo, boolean isStockOut) throws SQLException;
+	List<PSIStockDetail> mapLast30DaysPurchaseTrans(ResultSet resultSet, PSIDatavo datavo, boolean isStockOut)
+			throws SQLException;
+
+	List<PSIStockDetail> getLast30DaysPurchase_UsedTrans(ResultSet resultSet, PSIDatavo datavo) throws SQLException;
 
 }

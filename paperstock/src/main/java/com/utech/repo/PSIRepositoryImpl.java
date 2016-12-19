@@ -49,7 +49,10 @@ public class PSIRepositoryImpl implements PSIRespository {
 			"insert into stockdetails(stock,financial_year,mill_id,lastupdated)values(?,?,?,?)", /* 2 */
 			"SELECT act.opening_stock as opening,act.purchase as purchase,act.closing_stock as closing,act.createdon as created ,act.remarks as remark,"
 					+ " mill.sno as millid,mill.millname as millname,mill.gsm as gsm,mill.grade as grade,mill.size as size FROM activity act inner join milldetails"
-					+ " mill on act.mill_id=mill.sno where act.financial_year=?and act.createdon between ? and ? and purchase is not null;" /* 3 */ };
+					+ " mill on act.mill_id=mill.sno where act.financial_year=?and act.createdon between ? and ? and purchase is not null;", /* 3 */
+			"SELECT act.opening_stock as opening,act.used as used,act.purchase as purchase,act.closing_stock as closing,act.createdon as created ,act.remarks as remark,"
+					+ " mill.sno as millid,mill.millname as millname,mill.gsm as gsm,mill.grade as grade,mill.size as size FROM activity act inner join milldetails"
+					+ " mill on act.mill_id=mill.sno where act.financial_year=?and act.createdon between ? and ?;" /* 4 */ };
 
 	@Override
 	public boolean isValidUser(USERINFO userinfo) throws SQLException {
@@ -259,11 +262,26 @@ public class PSIRepositoryImpl implements PSIRespository {
 			pst.setTimestamp(2, new Timestamp(ControllerUtil.getBackDate(Constants.BACK_DAYS_INT).getTime()));
 			pst.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
 			ResultSet resultSet = pst.executeQuery();
-			psiStockDetails = this.responseMapper.mapLast30DaysPurchaseTrans(resultSet, datavo,false);
+			psiStockDetails = this.responseMapper.mapLast30DaysPurchaseTrans(resultSet, datavo, false);
 		} finally {
 			this.connection.getConnection().close();
 		}
 		return psiStockDetails;
 	}
 
+	public List<PSIStockDetail> getLast30DaysPurchase_UsedTrans(PSIDatavo datavo) throws SQLException {
+		List<PSIStockDetail> psiStockDetails = null;
+		try {
+			Connection connection = this.connection.getConnection();
+			PreparedStatement pst = connection.prepareStatement(stockInQuery[4]);
+			pst.setString(1, datavo.getUserinfo().getFinacialYear());
+			pst.setTimestamp(2, new Timestamp(ControllerUtil.getBackDate(Constants.BACK_DAYS_INT).getTime()));
+			pst.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+			ResultSet resultSet = pst.executeQuery();
+			psiStockDetails = this.responseMapper.getLast30DaysPurchase_UsedTrans(resultSet, datavo);
+		} finally {
+			this.connection.getConnection().close();
+		}
+		return psiStockDetails;
+	}
 }
