@@ -39,7 +39,7 @@ CREATE TABLE `activity` (
   PRIMARY KEY (`sno`),
   KEY `FK_activity_1` (`mill_id`),
   CONSTRAINT `FK_activity_1` FOREIGN KEY (`mill_id`) REFERENCES `milldetails` (`sno`) ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `activity`
@@ -49,7 +49,11 @@ CREATE TABLE `activity` (
 INSERT INTO `activity` (`sno`,`mill_id`,`opening_stock`,`purchase`,`used`,`closing_stock`,`createdon`,`financial_year`,`remarks`) VALUES 
  (24,1,0,50,NULL,50,'2016-12-17 20:37:39','2016-2017','testing'),
  (25,1,50,NULL,30,20,'2016-12-17 23:13:17','2016-2017','testing'),
- (26,1,20,NULL,20,0,'2016-12-18 08:39:21','2016-2017','testing');
+ (26,1,20,NULL,20,0,'2016-12-18 08:39:21','2016-2017','testing'),
+ (27,3,0,167,NULL,167,'2016-12-18 16:50:49','2016-2017','Testing'),
+ (28,4,0,89,NULL,89,'2016-12-18 23:19:37','2016-2017','testing'),
+ (29,4,89,10,NULL,99,'2016-12-18 23:21:57','2016-2017',''),
+ (30,17,0,110,NULL,110,'2016-12-18 23:32:55','2016-2017','testing');
 /*!40000 ALTER TABLE `activity` ENABLE KEYS */;
 
 
@@ -95,7 +99,7 @@ CREATE TABLE `milldetails` (
   `remarks` varchar(255) DEFAULT NULL,
   `createdon` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`sno`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `milldetails`
@@ -113,7 +117,8 @@ INSERT INTO `milldetails` (`sno`,`millname`,`gsm`,`grade`,`size`,`address`,`mail
  (13,'CARBONLESS','50','CFB WT','19-inch','','','9176107053','','2016-12-17 16:14:26'),
  (14,'CARBONLESS','50','CFB WT','19-inch','','','9176107053','','2016-12-17 16:15:18'),
  (15,'CARBONLESS','50','CFB WT','19-inch','','','9176107053','','2016-12-17 16:15:38'),
- (16,'CARBONLESS','50','CFB WT','19-inch','','','9176107053','','2016-12-17 16:16:26');
+ (16,'CARBONLESS','50','CFB WT','19-inch','','','9176107053','','2016-12-17 16:16:26'),
+ (17,'CARBONLESS','51','CFB WT','9-inch','','','9176107053','','2016-12-18 11:58:38');
 /*!40000 ALTER TABLE `milldetails` ENABLE KEYS */;
 
 
@@ -132,7 +137,7 @@ CREATE TABLE `stockdetails` (
   PRIMARY KEY (`sno`),
   KEY `FK_stockdetails_1` (`mill_id`),
   CONSTRAINT `FK_stockdetails_1` FOREIGN KEY (`mill_id`) REFERENCES `milldetails` (`sno`) ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `stockdetails`
@@ -140,7 +145,10 @@ CREATE TABLE `stockdetails` (
 
 /*!40000 ALTER TABLE `stockdetails` DISABLE KEYS */;
 INSERT INTO `stockdetails` (`sno`,`stock`,`financial_year`,`timestamp`,`mill_id`,`lastupdated`) VALUES 
- (10,0,'2016-2017','2016-12-18 08:39:21',1,'2016-12-18 08:39:21');
+ (10,0,'2016-2017','2016-12-18 08:39:21',1,'2016-12-18 08:39:21'),
+ (11,167,'2016-2017','2016-12-18 16:50:49',3,'2016-12-18 16:50:49'),
+ (12,99,'2016-2017','2016-12-18 23:23:59',4,'2016-12-18 23:23:57'),
+ (13,110,'2016-2017','2016-12-18 23:32:56',17,'2016-12-18 23:32:56');
 /*!40000 ALTER TABLE `stockdetails` ENABLE KEYS */;
 
 
