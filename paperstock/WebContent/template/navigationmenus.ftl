@@ -8,11 +8,11 @@
                     <li class="<#if navpage?? && navpage=="stockout">active</#if>">
                         <a href="navigation?menu=stockout"><i class="fa fa-fw fa-table"></i> Stockout</a>
                     </li>
+                     <li class="<#if navpage?? && navpage=="milldetail">active</#if>">
+                        <a href="navigation?menu=milldetail"><i class="fa fa-fw fa-desktop"></i> Mill Detail</a>
+                    </li>
                     <li class="<#if navpage?? && navpage=="report">active</#if>">
                         <a href="navigation?menu=report"><i class="fa fa-fw fa-edit"></i> Report</a>
-                    </li>
-                    <li class="<#if navpage?? && navpage=="milldetail">active</#if>">
-                        <a href="navigation?menu=milldetail"><i class="fa fa-fw fa-desktop"></i> Mill Detail</a>
                     </li>
                     <!--
                     <li>

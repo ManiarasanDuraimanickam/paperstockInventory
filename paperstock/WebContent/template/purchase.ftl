@@ -53,9 +53,9 @@
                 <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">
-                     <h1 class="page-header">
-                            <small><i class="fa fa-bar-chart-o"></i> Purchase</small>
-                        </h1>
+                     <h4 class="page-header">
+                           <i class="fa fa-bar-chart-o"></i> Purchase
+                        </h4>
                     </div>
                 </div>
                 <!-- /.row -->

@@ -23,8 +23,14 @@
     <!-- Custom Fonts -->
     <link href="template/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     
+     <link href="template/css/date-picker.css" rel="stylesheet" type="text/css">
+      <link href="template/css/base.css" rel="stylesheet" type="text/css">
+    
        <!-- jQuery -->
     <script src="template/js/jquery.js"></script>
+    <script src="template/js/moment.js"></script>
+    <script src="template/js/date-picker.js"></script>
+     
 
     <!-- Bootstrap Core JavaScript -->
     <script src="template/js/bootstrap.min.js"></script>

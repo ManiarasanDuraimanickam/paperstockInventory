@@ -133,9 +133,9 @@
                 <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">
-                            <small><i class="fa fa-dashboard"></i> Dashboard Overview</small>
-                        </h1>
+                        <h4 class="page-header">
+                            <i class="fa fa-dashboard"></i> Dashboard Overview
+                        </h4>
                        <!-- <ol class="breadcrumb">
                             <li class="active">
                                 <i class="fa fa-dashboard"></i> Dashboard

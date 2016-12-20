@@ -53,13 +53,24 @@
                 <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">
-                            <small><i class="fa fa-edit"></i> Report</small>
-                        </h1>
+                        <h4 class="page-header">
+                            <i class="fa fa-edit"></i> Report
+                        </h4>
                     </div>
                 </div>
                 <!-- /.row -->
-
+                <div class="row">
+                	<div class="col-lg-6 col-md-6 col-xs-6">
+                	<div style="text-align:right">
+                		<input value="search" type="button" class="btn-search-own"/>
+                	</div>
+                	</div>
+                	<div class="col-lg-6 col-md-6 col-xs-12">
+                		<#include "/linked-datepicker.ftl"/>
+                	</div>
+                </div>
+                <div class="clear">
+                </div>
                 <div class="row">
                 <div class="col-lg-6 col-md-6 col-xs-12">
                 <#assign index=0/>

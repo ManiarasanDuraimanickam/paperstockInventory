@@ -303,3 +303,16 @@ ul.alert-dropdown {
 	vertical-align: inherit;
 	text-align: inherit;
 }
+
+.clear {
+	padding: 0.1px;
+	clear: both;
+}
+
+.btn-search-own {
+	padding: 5px;
+	background: #337ab7;
+	color:#fff;
+	width: 15%;
+	border-radius: 7px;
+}
