@@ -72,11 +72,15 @@ public class StockFilterController extends HttpServlet {
 		}
 		try {
 			String menu = request.getParameter("pageid");
+			List<PSIStockDetail> stockDetail=null;
 			if (menu != null && menu.equalsIgnoreCase("stockout")) {
 				PSIService psiStockOut = new PSIStockoutService();
+				stockDetail = psiStockOut.getFilteredStockByUserQuery(datavo, queryIndex,
+						query.toArray());
+			} else {
+				stockDetail = PSI_SERVICE.getFilteredStockByUserQuery(datavo, queryIndex,
+						query.toArray());
 			}
-			List<PSIStockDetail> stockDetail = PSI_SERVICE.getFilteredStockByUserQuery(datavo, queryIndex,
-					query.toArray());
 			Gson gson = new Gson();
 			String responseData = gson.toJson(stockDetail);
 			response.setContentType("application/json");

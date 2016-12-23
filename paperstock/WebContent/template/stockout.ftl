@@ -140,7 +140,7 @@
 	                                    <tr>
 	                                    <tr>
 	                                    	<th>remarks</th>
-	                                    	<td><textarea name="remarks"></textarea>
+	                                    	<td><textarea name="remarks" class="inputsize" maxlength="75"></textarea>
 	                                    </tr>
 	                                    <th>Remaning</th>
 	                                    <td><span id="remaningtotal" class="totalstock">0</span></td>
@@ -158,20 +158,35 @@
 	                     </div>
                      </div>
                       <div class="col-lg-8 col-md-8 col-xs-12">
-		                <div class="table-responsive">
-	                     	 <table class="table table-bordered table-hover table-striped">
+                      <table id="subsituteHeader" class="hide table-bordered theadBgColor subsitituteHeader">
+                     <thead>
+	                	 <tr>
+	                		<th id="millid">Sno</th>
+	             	 		<th id="name">Mill</th>
+	             	 		<th id="gsm">Gsm</th>
+	             	 		<th id="grade">Grade</th>
+	             	 		<th id="size">Size</th>
+	             	 		<th id="opening">opening</th>
+	             	 		<th id="stock-out">Stock-out</th>
+	             	 		<th id="closing">closing</th>
+	             	 		<th id="created">Created</th>
+	                        </tr>
+	                	 </thead>
+                     </table>
+		                <div id="stockoutdetailDiv" class="table-responsive table-fixed-height412px">
+	                     	<table id="stockoutdetailTBL" class="table table-bordered table-hover theadBgColor">
 		                     	 <thead>
 		                     	 	<tr>
-		                     	 		<th>Sno</th>
-		                     	 		<th>Mill</th>
-		                     	 		<th>Gsm</th>
-		                     	 		<th>Grade</th>
-		                     	 		<th>Size</th>
-		                     	 		<th>opening</th>
-		                     	 		<th>Stock-out</th>
-		                     	 		<th>closing</th>
-		                     	 		<th>Created</th>
-		                     	 		<th>Edit</th>
+		                     	 		<th id="millid">Sno</th>
+				             	 		<th id="name">Mill</th>
+				             	 		<th id="gsm">Gsm</th>
+				             	 		<th id="grade">Grade</th>
+				             	 		<th id="size">Size</th>
+				             	 		<th id="opening">opening</th>
+				             	 		<th id="stock-out">Stock-out</th>
+				             	 		<th id="closing">closing</th>
+				             	 		<th id="created">Created</th>
+		                     	 		<!--<th>Edit</th>-->
 		                     	 	</tr>
 		                     	 </thead>
 		                     	 <tbody>
@@ -189,7 +204,7 @@
 			                     	 		<td id="stockout_${paperdetails_index}">${paperdetails.stockOut!}</td>
 			                     	 		<td id="closing_${paperdetails_index}">${paperdetails.closing!}</td>
 			                     	 		<td id="created_${paperdetails_index}">${paperdetails.createdon!}</td>
-			                     	 		<td><input type="button" value="Edit" class="btn-warning"/>
+			                     	 		<#--<td><input type="button" value="Edit" class="btn-warning"/></td>-->
 			                     	 	</tr>
 			                     	 </#list>
 								</#list>
@@ -214,6 +229,7 @@ $(document).ready(function(){
 	stockoutKeyPress()
 	stockoutBlur(); 			   
 	submitFormValidation();
+	detectstockoutdetailDivScroll();
 	<#if (savestatus?? && savestatus?length>0 )>
 		<#if savestatus=="Your record has been saved successfully..!">
 			showSuccessMsg("${savestatus}");
@@ -505,6 +521,29 @@ function submitFormValidation(){
             scrollTop: 0
         }, position);
 	}
+function detectstockoutdetailDivScroll(){
+	var stockoutDetailTBL=$("div#stockoutdetailDiv").find("table#stockoutdetailTBL");
+	var subsituteHeader=$("table#subsituteHeader");
+	subsituteHeader.find("th#millid").width(stockoutDetailTBL.find("th#millid").width());
+	subsituteHeader.find("th#name").width(stockoutDetailTBL.find("th#name").width());
+	subsituteHeader.find("th#gsm").width(stockoutDetailTBL.find("th#gsm").width());
+	subsituteHeader.find("th#grade").width(stockoutDetailTBL.find("th#grade").width());
+	subsituteHeader.find("th#size").width(stockoutDetailTBL.find("th#size").width());
+	subsituteHeader.find("th#opening").width(stockoutDetailTBL.find("th#opening").width());
+	subsituteHeader.find("th#stock-out").width(stockoutDetailTBL.find("th#stock-out").width());
+	subsituteHeader.find("th#closing").width(stockoutDetailTBL.find("th#closing").width());
+	subsituteHeader.find("th#created").width(stockoutDetailTBL.find("th#created").width());
+	$("div#stockoutdetailDiv").scroll(function(event){
+		//alert("scrollTop-"++" innerHeigth-"+$(this).innerHeight());
+		var scrollHeigth=$(this).scrollTop();
+		if(scrollHeigth>=10){
+		subsituteHeader.removeClass("hide");
+		}
+		else{
+		subsituteHeader.addClass("hide");
+		}
+	});
+}
 </script>
     </body>
     </html>

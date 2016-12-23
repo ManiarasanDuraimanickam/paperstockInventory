@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import com.utech.conection.DBConnection;
@@ -277,6 +278,21 @@ public class PSIRepositoryImpl implements PSIRespository {
 			pst.setString(1, datavo.getUserinfo().getFinacialYear());
 			pst.setTimestamp(2, new Timestamp(ControllerUtil.getBackDate(Constants.BACK_DAYS_INT).getTime()));
 			pst.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+			ResultSet resultSet = pst.executeQuery();
+			psiStockDetails = this.responseMapper.getLast30DaysPurchase_UsedTrans(resultSet, datavo);
+		} finally {
+			this.connection.getConnection().close();
+		}
+		return psiStockDetails;
+	}
+	public List<PSIStockDetail> getPurchase_UsedTransBySelectedDate(Date startDate,Date endDate,PSIDatavo datavo) throws SQLException {
+		List<PSIStockDetail> psiStockDetails = null;
+		try {
+			Connection connection = this.connection.getConnection();
+			PreparedStatement pst = connection.prepareStatement(stockInQuery[4]);
+			pst.setString(1, datavo.getUserinfo().getFinacialYear());
+			pst.setTimestamp(2, new Timestamp(startDate.getTime()));
+			pst.setTimestamp(3, new Timestamp(endDate.getTime()));
 			ResultSet resultSet = pst.executeQuery();
 			psiStockDetails = this.responseMapper.getLast30DaysPurchase_UsedTrans(resultSet, datavo);
 		} finally {

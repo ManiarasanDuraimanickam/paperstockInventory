@@ -1,6 +1,7 @@
 package com.utech.service;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import com.utech.model.PSIDatavo;
@@ -85,6 +86,13 @@ public class PSIServiceImpl implements PSIService {
 	public List<PSIStockDetail> getLast30DaysPurchase_UsedTrans(PSIDatavo datavo) throws SQLException {
 		// TODO Auto-generated method stub
 		return this.respository.getLast30DaysPurchase_UsedTrans(datavo);
+	}
+
+	@Override
+	public List<PSIStockDetail> getPurchase_UsedTransBySelectedDate(Date startDate, Date endDate, PSIDatavo datavo)
+			throws SQLException {
+		// TODO Auto-generated method stub
+		return this.respository.getPurchase_UsedTransBySelectedDate(startDate, endDate, datavo);
 	}
 
 }

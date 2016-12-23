@@ -2,6 +2,7 @@ package com.utech.service;
 
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import com.utech.model.PSIDatavo;
@@ -31,4 +32,7 @@ public interface PSIService extends Serializable {
 	public List<PSIStockDetail> getLast30DaysPurchaseTrans(PSIDatavo datavo) throws SQLException;
 
 	public List<PSIStockDetail> getLast30DaysPurchase_UsedTrans(PSIDatavo datavo) throws SQLException;
+
+	public List<PSIStockDetail> getPurchase_UsedTransBySelectedDate(Date startDate, Date endDate, PSIDatavo datavo)
+			throws SQLException;
 }
