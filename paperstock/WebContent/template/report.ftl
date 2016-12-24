@@ -118,7 +118,7 @@
                  </#list>
 				</div-->
 				<div class="col-lg-12 col-md-12 col-xs-12">
-					<table id="subsituteHeader" class="hide table-bordered theadBgColor subsitituteHeader">
+					<table id="subsituteHeader" class="hide table-bordered theadBgColor subsitituteHeader" style="width:96%">
                      <thead>
 	                	 <tr>
 	                		<th id="millid">Sno</th>

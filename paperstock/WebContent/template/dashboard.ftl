@@ -178,7 +178,7 @@
 	                                    </div>
 	                                    
 	                                    <div class="col-lg-6 col-md-6 col-xs-8 text-right">
-	                                        <div class="huge">${paperdetail.stock!}kg</div>
+	                                        <div class="huge">${paperdetail.stock!}<small>kg</small></div>
 	                                        <div>${stockdetail.millname!}</div>
 	                                    </div>
 	                                </div>
