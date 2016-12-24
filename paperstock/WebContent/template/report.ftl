@@ -60,19 +60,24 @@
                 </div>
                 <!-- /.row -->
                 <div class="row">
+                	<div class="col-lg-6 col-md-6 col-xs-12">
+                		<#include "/linked-datepicker.ftl"/>
+                	</div>
                 	<div class="col-lg-6 col-md-6 col-xs-6">
-                	<div style="text-align:right">
+                	<div class="row">
+                	<div class="col-lg-6 col-md-6 col-xs-12" style="text-align:left">
+                		<input value="search" type="button" class="btn-search-own" id="search"/>
+                	</div>
+                	<div  class="col-lg-6 col-md-6 col-xs-12" style="text-align:left">
                 		<input value="search" type="button" class="btn-search-own" id="search"/>
                 	</div>
                 	</div>
-                	<div class="col-lg-6 col-md-6 col-xs-12">
-                		<#include "/linked-datepicker.ftl"/>
                 	</div>
                 </div>
                 <div class="clear">
                 </div>
                 <div class="row">
-                <div class="col-lg-6 col-md-6 col-xs-12" style="max-height:450px;overflow:auto">
+                <!--div class="col-lg-6 col-md-6 col-xs-12" style="max-height:450px;overflow:auto">
                 <#assign index=0/>
                  <#list PSIDatavo.stockDetails as stockdetail>
 	                 <#list stockdetail.paperDetail as paperdetail>
@@ -109,8 +114,8 @@
 		                  </div>
 	                 </#list>
                  </#list>
-				</div>
-				<div class="col-lg-6 col-md-6 col-xs-12">
+				</div-->
+				<div class="col-lg-12 col-md-12 col-xs-12">
 					<table id="subsituteHeader" class="hide table-bordered theadBgColor subsitituteHeader">
                      <thead>
 	                	 <tr>

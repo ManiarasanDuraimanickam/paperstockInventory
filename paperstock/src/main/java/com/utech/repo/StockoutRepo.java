@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import com.utech.conection.DBConnection;
@@ -164,6 +165,13 @@ public class StockoutRepo implements PSIRespository {
 
 	@Override
 	public List<PSIStockDetail> getLast30DaysPurchase_UsedTrans(PSIDatavo datavo) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<PSIStockDetail> getPurchase_UsedTransBySelectedDate(Date startDate, Date endDate, PSIDatavo datavo)
+			throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
