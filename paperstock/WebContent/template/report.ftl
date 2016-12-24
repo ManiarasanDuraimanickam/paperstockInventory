@@ -69,7 +69,9 @@
                 		<input value="search" type="button" class="btn-search-own" id="search"/>
                 	</div>
                 	<div  class="col-lg-6 col-md-6 col-xs-12" style="text-align:left">
-                		<input value="search" type="button" class="btn-search-own" id="search"/>
+                	<form action="reportdownload" method="get">
+                		<input value="Generate Report" type="submit" class="btn-search-own" id="generate"/>
+                	</form>
                 	</div>
                 	</div>
                 	</div>

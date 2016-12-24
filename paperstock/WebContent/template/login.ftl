@@ -183,10 +183,6 @@ cursor: pointer;
     color: rgb(12, 97, 33);
 }
 </style>
-
-
-    <script src="https://use.typekit.net/ayg4pcz.js"></script>
-    <script>try{Typekit.load({ async: true });}catch(e){}</script>
 <body>
     <div class="container">
     <div class="welcome text-center"> <center>Welcome to Paper Stock<center></center></center></div>

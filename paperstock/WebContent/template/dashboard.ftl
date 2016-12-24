@@ -158,26 +158,28 @@
                 <!-- /.row -->
 
                 <div class="row">
-                 <#list PSIDatavo.stockDetails as stockdetail>
-	                 <#list stockdetail.paperDetail as paperdetail>
-	                 	<div class="col-lg-3 col-md-6">
+                 <#list PSIDatavo.stockDetails?sort_by("millname") as stockdetail>
+	                 <#list stockdetail.paperDetail?sort_by("stock") as paperdetail>
+	                 	<div class="col-lg-4 col-md-6">
                      		<div class="panel <#if (paperdetail.stock?eval gt 130)>panel-green<#elseif (paperdetail.stock?eval gt 100 )>panel-primary<#elseif (paperdetail.stock?eval gt 50 )>panel-yellow<#elseif (paperdetail.stock?eval < 50 )> panel-red</#if>">
 	                            <div class="panel-heading">
 	                                <div class="row">
-	                                    <div class="col-xs-3">
+	                                    <div class="col-lg-6 col-md-6 col-xs-4">
 	                                        <i class="fa fa-comments fa-2x"></i>
-	                                        ${stockdetail.millname!}
+	                                        
 											<div>
 												<ul style="padding-left: 1em;margin: 0;">
+												<li>${paperdetail.grade!}</li>
 				                                    <li>${paperdetail.gsm!}GSM</li>
+				                                    
 				                                    <li>${paperdetail.size!}</li>
 		                                    	</ul>
 											</div>
 	                                    </div>
 	                                    
-	                                    <div class="col-xs-9 text-right">
+	                                    <div class="col-lg-6 col-md-6 col-xs-8 text-right">
 	                                        <div class="huge">${paperdetail.stock!}kg</div>
-	                                        <div>${paperdetail.grade!}</div>
+	                                        <div>${stockdetail.millname!}</div>
 	                                    </div>
 	                                </div>
 	                            </div>
